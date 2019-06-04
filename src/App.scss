@@ -75,6 +75,24 @@ img {
   width: 40px;
 }
 
+.profile-images {
+  align-self: center;
+  width: 250px;
+  margin: 15px;
+}
+
+.profile-images:hover {
+  -webkit-filter: brightness(90%);
+}
+
+.profile-images-container {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .single-post {
   margin-bottom: 50px;
 }

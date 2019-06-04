@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 // import { Link, Redirect } from 'react-router-dom'
 import { withRouter } from 'react-router-dom'
 // import Card from 'react-bootstrap/Card'
+import Image from 'react-bootstrap/Image'
 
 import apiUrl from './apiConfig'
 import axios from 'axios'
@@ -25,14 +26,11 @@ class Profile extends Component {
     const picture = this.state.pictures.filter(function (pic) {
       return pic.owner._id === user._id
     }).map(picture => (
-      <div key={picture._id}>
-        <img src={picture.url}/>
-        <p>{picture.description}</p>
-      </div>
+      <Image key={picture._id} className="profile-images" src={picture.url}/>
     ))
 
     return (
-      <div>
+      <div className="profile-images-container" >
         {picture}
       </div>
     )
