@@ -2,6 +2,11 @@ $success: #c7f282;
 $warning: #f1e681;
 $error: #f08181;
 $charcoal: #ccc;
+$body: #fafafa;
+
+#root {
+  background-color: $body;
+}
 
 .flash-success,
 .flash-warning,
@@ -49,4 +54,9 @@ $charcoal: #ccc;
 
 img {
   width: 80vw;
+}
+
+.card {
+  width: 50vw;
+  margin-top: 25px;
 }

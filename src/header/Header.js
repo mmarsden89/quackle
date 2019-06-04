@@ -18,18 +18,12 @@ const unauthenticatedOptions = (
   </React.Fragment>
 )
 
-const alwaysOptions = (
-  <React.Fragment>
-    <Link to="/">Home</Link>
-  </React.Fragment>
-)
-
 const Header = ({ user }) => (
   <header className="main-header">
-    <h1>duckPics</h1>
+    <img className='duck-header' src="https://i.imgur.com/8xwTCdE.png"/>
+    <Link to="/"><h1>duckPics</h1></Link>
     <nav>
       { user ? authenticatedOptions : unauthenticatedOptions }
-      { alwaysOptions }
     </nav>
   </header>
 )
