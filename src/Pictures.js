@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { Link, withRouter } from 'react-router-dom'
+import Card from 'react-bootstrap/Card'
 
 import apiUrl from './apiConfig'
 
@@ -19,9 +21,13 @@ class Pictures extends Component {
 
   render () {
     const pictures = this.state.pictures.map(picture => (
-      <div key={picture._id}>
-        <img src={picture.url}/>
-      </div>
+      <Card key={picture._id}>
+        <Card.Img variant="top" src={picture.url} />
+        <Link to={'/uploads/' + picture._id}><p>{picture.title}</p></Link>
+        <Card.Footer>
+          <small className="text-muted">Last updated 3 mins ago</small>
+        </Card.Footer>
+      </Card>
     ))
 
     return (
@@ -37,4 +43,4 @@ class Pictures extends Component {
   }
 }
 
-export default Pictures
+export default withRouter(Pictures)
