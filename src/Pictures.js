@@ -1,7 +1,7 @@
 import apiUrl from './apiConfig'
 import React, { Component } from 'react'
 import axios from 'axios'
-import { withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import Card from 'react-bootstrap/Card'
 const moment = require('moment')
 
@@ -20,12 +20,14 @@ class Pictures extends Component {
   }
 
   render () {
+    console.log(this.props.user)
     const pictures = this.state.pictures.map(picture => (
       <Card key={picture._id}>
-        <Card.Header>@{picture.owner.username || 'unknown'}</Card.Header>
+        <Card.Header className="card-header"><p>@{picture.owner.username || 'unknown'}</p> <Link to={'/uploads/' + picture._id}>see post</Link></Card.Header>
         <Card.Img variant="top" src={picture.url} />
         <Card.Footer>
-          <Card.Text><span><b>@{picture.owner.username || 'unknown'} - </b><p>{picture.title || picture.description}</p></span></Card.Text>
+          { this.props.user ? <Card.Img className="duck-like" src="https://i.imgur.com/nWCiT5Z.png"/> : 'no' }
+          <Card.Text><b>@{picture.owner.username || 'unknown'} - </b>{picture.title || picture.description}</Card.Text>
           <Card.Text>#{picture.tag || 'notags'}</Card.Text>
           <small className="text-muted">Last updated {moment(picture.updatedAt).fromNow()}</small>
         </Card.Footer>

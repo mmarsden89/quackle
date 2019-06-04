@@ -4,7 +4,7 @@ $error: #f08181;
 $charcoal: #ccc;
 $body: #fafafa;
 
-#root {
+html, #root {
   background-color: $body;
 }
 
@@ -57,6 +57,20 @@ img {
 }
 
 .card {
-  width: 50vw;
   margin-top: 25px;
+  width: 50vw;
+}
+
+.card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.duck-like {
+  width: 40px;
+}
+
+.single-post {
+  margin-bottom: 50px;
 }

@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 // import { Link, Redirect } from 'react-router-dom'
 import { withRouter } from 'react-router-dom'
+import Card from 'react-bootstrap/Card'
 
 import apiUrl from './apiConfig'
 import axios from 'axios'
+
+const moment = require('moment')
 
 class Picture extends Component {
   constructor (props) {
@@ -37,10 +40,18 @@ class Picture extends Component {
         </div>
       )
     }
+
     const pictureHtml = (
       <div>
-        <img src={picture.url}/>
-        <p>{picture.title}</p>
+        <Card key={picture._id} className="single-post">
+          <Card.Header className="card-header"><p>@{picture.owner.username || 'unknown'}</p></Card.Header>
+          <Card.Img variant="top" src={picture.url} />
+          <Card.Footer>
+            <Card.Text><span><b>@{picture.owner.username || 'unknown'} - </b><p>{picture.title || picture.description}</p></span></Card.Text>
+            <Card.Text>#{picture.tag || 'notags'}</Card.Text>
+            <small className="text-muted">Last updated {moment(picture.updatedAt).fromNow()}</small>
+          </Card.Footer>
+        </Card>
       </div>
     )
 
