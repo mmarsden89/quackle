@@ -11,6 +11,7 @@ import ChangePassword from './auth/components/ChangePassword'
 import Upload from './Upload'
 import Pictures from './Pictures'
 import Picture from './Picture'
+import Profile from './Profile'
 
 import Alert from 'react-bootstrap/Alert'
 
@@ -48,6 +49,9 @@ class App extends Component {
         <main className="container">
           <Route exact path='/' render={() => (
             <Pictures alert={this.alert} match={this.match} user={this.state.user} />
+          )} />
+          <Route exact path='/profile' render={() => (
+            <Profile alert={this.alert} match={this.match} user={this.state.user} />
           )} />
           <Route path='/uploads/:id' render={() => (
             <Picture alert={this.alert} match={this.match} user={this.state.user} />
