@@ -25,12 +25,29 @@ class Picture extends Component {
     console.log(this.state.picture.url)
   }
 
-  destroyPicture = async (id) => {
-    await axios.delete(`${apiUrl}/uploads/${id}`)
-    this.setState({ deleted: true })
+  smashThatLike = async event => {
+    const id = event.target.id
+    await axios({
+      url: apiUrl + `/likes/${id}`,
+      method: 'PATCH',
+      headers: { Authorization: 'Token token=' + this.props.user.token },
+      data: {
+        upload: {
+          likes: this.props.user.username || this.props.user._id
+        } }
+    })
+  }
+
+  destroyPicture = async event => {
+    await axios({
+      url: `${apiUrl}/uploads/${this.props.match.params.id}`,
+      method: 'DELETE',
+      headers: { Authorization: 'Token token=' + this.props.user.token }
+    })
   }
 
   render () {
+    console.log(this.props)
     const { picture } = this.state
     console.log(picture)
     if (!picture) {
@@ -47,7 +64,7 @@ class Picture extends Component {
           <Card.Header className="card-header"><p>@{picture.owner.username || 'unknown'}</p></Card.Header>
           <Card.Img variant="top" src={picture.url} />
           <Card.Footer>
-            <Card.Text><span><b>@{picture.owner.username || 'unknown'} - </b><p>{picture.title || picture.description}</p></span></Card.Text>
+            <Card.Text><b>@{picture.owner.username || 'unknown'} - </b>{picture.title || picture.description}</Card.Text>
             <Card.Text>#{picture.tag || 'notags'}</Card.Text>
             <small className="text-muted">Last updated {moment(picture.updatedAt).fromNow()}</small>
           </Card.Footer>

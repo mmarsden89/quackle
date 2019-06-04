@@ -19,14 +19,26 @@ class Pictures extends Component {
     this.setState({ pictures: response.data.uploads })
   }
 
+  smashThatLike = async event => {
+    const id = event.target.id
+    await axios({
+      url: apiUrl + `/likes/${id}`,
+      method: 'PATCH',
+      headers: { Authorization: 'Token token=' + this.props.user.token },
+      data: {
+        upload: {
+          likes: this.props.user.username || this.props.user._id
+        } }
+    })
+  }
+
   render () {
-    console.log(this.props.user)
     const pictures = this.state.pictures.map(picture => (
       <Card key={picture._id}>
-        <Card.Header className="card-header"><p>@{picture.owner.username || 'unknown'}</p> <Link to={'/uploads/' + picture._id}>see post</Link></Card.Header>
-        <Card.Img variant="top" src={picture.url} />
+        <Card.Header className="card-header"><p>@{picture.owner.username || 'unknown'}</p></Card.Header>
+        <Link to={'/uploads/' + picture._id}><Card.Img variant="top" src={picture.url} /></Link>
         <Card.Footer>
-          { this.props.user ? <Card.Img className="duck-like" src="https://i.imgur.com/nWCiT5Z.png"/> : 'no' }
+          { this.props.user ? (picture.likes.includes(this.props.user._id) ? <Card.Img className="duck-like" src='https://i.imgur.com/1gqZnEN.png' onClick={this.smashThatLike} id={picture._id}/> : <Card.Img className="duck-like" src="https://i.imgur.com/nWCiT5Z.png" onClick={this.smashThatLike} id={picture._id}/>) : 'no' }
           <Card.Text><b>@{picture.owner.username || 'unknown'} - </b>{picture.title || picture.description}</Card.Text>
           <Card.Text>#{picture.tag || 'notags'}</Card.Text>
           <small className="text-muted">Last updated {moment(picture.updatedAt).fromNow()}</small>
