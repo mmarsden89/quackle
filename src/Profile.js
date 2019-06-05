@@ -28,7 +28,9 @@ class Profile extends Component {
     this.setState({ pictures: response.data.uploads })
   }
 
-  handleChange = event => {
+  onCreateSuccess = data => {
+    const url = data.data.upload.url
+    this.onSendToUser(url)
   }
   onCreateProfile = async event => {
     event.preventDefault()
@@ -43,7 +45,28 @@ class Profile extends Component {
       },
       data: formData
     })
-      .then(formData)
+      .then(this.onCreateSuccess)
+      .catch(console.log('eeyo'))
+  }
+
+  onSendToUser = async url => {
+    console.log(this.props.user.token)
+    const formData = new FormData(event.target)
+    formData.description = this.profile
+    formData.tag = this.profile
+    await axios({
+      url: `${apiUrl}/users/${this.props.user._id}`,
+      method: 'PATCH',
+      headers: {
+        Authorization: 'Token token=' + this.props.user.token
+      },
+      data: {
+        user: {
+          profile: url
+        }
+      }
+    })
+      .then(console.log('yo'))
       .catch(console.log('eeyo'))
   }
 
