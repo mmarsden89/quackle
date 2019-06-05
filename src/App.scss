@@ -3,6 +3,7 @@ $warning: #f1e681;
 $error: #f08181;
 $charcoal: #ccc;
 $body: #fafafa;
+$link: #3897f0;
 
 html, #root {
   background-color: $body;
@@ -71,8 +72,33 @@ img {
   background-color: white;
 }
 
+.comment-button {
+  background-color: white;
+  border: 0;
+  color: $link;
+}
+
+.comment-button:hover {
+  background-color: white;
+  color: $link;
+}
+
 .duck-like {
   width: 40px;
+}
+
+.form-border {
+  border: 0;
+  margin-bottom: 0;
+}
+
+.profile-header {
+  align-items: center;
+  border-bottom: 1px solid gray;
+  display: flex;
+  flex-direction: row;
+  height: 200px;
+  justify-content: space-around;
 }
 
 .profile-images {
