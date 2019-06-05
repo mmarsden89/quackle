@@ -9,11 +9,11 @@ const Header = ({ user }) => (
   <header className="main-header">
     <div className="header-left">
       <img className='duck-header' src="https://i.imgur.com/8xwTCdE.png"/>
-      <Link to="/"><h1>duckPics</h1></Link>
+      <Link to="/" className="header-h1"><h1>duckPics</h1></Link>
     </div>
     <div className="searchbar-div">
       <FontAwesomeIcon className="search-icon" icon={faSearch}/>
-      <input className="header-input"/>
+      <input className="header-input" placeholder="Search"/>
     </div>
     <div className="header-right">
       { user

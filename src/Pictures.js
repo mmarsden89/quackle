@@ -81,7 +81,7 @@ class Pictures extends Component {
       <Card key={picture._id}>
         <Card.Header className="card-header">
           <Card.Img src={picture.owner.profile} className="avatar-pictures"/>
-          <p className="card-picture-p">{picture.owner.username || 'unknown'}</p></Card.Header>
+          <Link to={'/profile/' + picture.owner._id}><p className="card-picture-p">{picture.owner.username || 'unknown'}</p></Link></Card.Header>
         <Link to={'/uploads/' + picture._id}><Card.Img variant="top" src={picture.url} /></Link>
         <Card.Footer>
           { this.props.user ? (picture.likes.includes(this.props.user.username)

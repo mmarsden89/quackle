@@ -22,7 +22,8 @@ class Profile extends Component {
         url: '',
         owner: ''
       },
-      show: false
+      show: false,
+      user: {}
     }
   }
 
@@ -39,6 +40,9 @@ class Profile extends Component {
   async componentDidMount () {
     const response = await axios(`${apiUrl}/uploads`)
     this.setState({ pictures: response.data.uploads })
+    const userResponse = await axios(`${apiUrl}/users/${this.props.match.params.id}`)
+    this.setState({ user: userResponse.data.user })
+    console.log(userResponse)
   }
 
   onCreateSuccess = data => {
@@ -84,7 +88,8 @@ class Profile extends Component {
   }
 
   render () {
-    const user = this.props.user
+    console.log(this.props)
+    const user = this.state.user
     const picture = this.state.pictures.filter(function (pic) {
       return pic.owner._id === user._id
     }).map(picture => (

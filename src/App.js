@@ -54,7 +54,7 @@ class App extends Component {
           <Route exact path='/' render={() => (
             <Pictures alert={this.alert} match={this.match} user={this.state.user} />
           )} />
-          <Route exact path='/profile' render={() => (
+          <Route exact path='/profile/:id' render={() => (
             <Profile alert={this.alert} match={this.match} user={this.state.user} />
           )} />
           <Route path='/uploads/:id' render={() => (
