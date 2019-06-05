@@ -20,7 +20,7 @@ const Header = ({ user }) => (
         ? <nav>
           <Link to="/upload"><FontAwesomeIcon className="icon" icon={faCameraRetro}/></Link>
           <Link to="/settings"><FontAwesomeIcon className="icon" icon={faCog}/></Link>
-          <Link to="/profile"><img className="avatar" src={user.profile}/></Link>
+          <Link to={'/profile/' + user._id}><img className="avatar" src={user.profile}/></Link>
         </nav> : <nav>
           <Link to="/sign-up">Sign Up</Link>
           <Link to="/sign-in">Sign In</Link>

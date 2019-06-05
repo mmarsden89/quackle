@@ -87,10 +87,15 @@ img {
 }
 
 .card-picture-p {
-  margin-left: 10px;
-  margin-top: 15px;
+  color: black;
   font-family: 'Lato', sans-serif;
   font-weight: 700;
+  margin-left: 10px;
+  margin-top: 15px;
+}
+
+.nohover {
+  text-decoration: none !important;
 }
 
 .card-text {
