@@ -112,6 +112,7 @@ class Profile extends Component {
             onMouseOver={e => (e.currentTarget.src = 'https://unclogwarrior.s3.amazonaws.com/camera.jpg')}
             onMouseLeave={e => (e.currentTarget.src = user.profile)} onClick={this.handleShow}/>
           <h5>{user.username || user._id}</h5>
+          <p>{picture.length} posts</p>
         </div>
         <div className="profile-images-container" >
           {picture}
