@@ -12,13 +12,39 @@ class Profile extends Component {
     super(props)
     console.log('these are props', props)
     this.state = {
-      pictures: []
+      pictures: [],
+      upload: {
+        description: '',
+        tag: '',
+        url: '',
+        owner: ''
+      }
     }
   }
+  profile = 'Profile'
 
   async componentDidMount () {
     const response = await axios(`${apiUrl}/uploads`)
     this.setState({ pictures: response.data.uploads })
+  }
+
+  handleChange = event => {
+  }
+  onCreateProfile = async event => {
+    event.preventDefault()
+    const formData = new FormData(event.target)
+    formData.description = this.profile
+    formData.tag = this.profile
+    await axios({
+      url: `${apiUrl}/uploads`,
+      method: 'POST',
+      headers: {
+        Authorization: 'Token token=' + this.props.user.token
+      },
+      data: formData
+    })
+      .then(formData)
+      .catch(console.log('eeyo'))
   }
 
   render () {
@@ -32,7 +58,16 @@ class Profile extends Component {
     return (
       <div>
         <div className="profile-header">
-          <Image className="avatar" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"/>
+          <label htmlFor='single'>
+            <Image className="avatar" src={user.profile}
+              onMouseOver={e => (e.currentTarget.src = 'https://unclogwarrior.s3.amazonaws.com/camera.jpg')}
+              onMouseLeave={e => (e.currentTarget.src = user.profile)}/>
+          </label>
+          <form id="create" encType="multipart/form-data" onSubmit={this.onCreateProfile} className="upload-container">
+            <input type='file' name="picture" onChange={this.props.onChange} />
+            <input type="hidden" name="description" value="Profile"/>
+            <input id="btnCreatePicture" type="submit" className="btn btn-secondary"/>
+          </form>
           <h5>{user.username || user._id}</h5>
         </div>
         <div className="profile-images-container" >

@@ -1,15 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog } from '@fortawesome/free-solid-svg-icons'
+import { faCog, faCameraRetro } from '@fortawesome/free-solid-svg-icons'
 
 import './Header.scss'
 
 const authenticatedOptions = (
   <React.Fragment>
-    <Link to="/upload">Upload</Link>
-    <Link to="/settings"><FontAwesomeIcon icon={faCog}/></Link>
-    <Link to="/profile"><img className="avatar" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"/></Link>
+    <Link to="/upload"><FontAwesomeIcon className="icon" icon={faCameraRetro}/></Link>
+    <Link to="/settings"><FontAwesomeIcon className="icon" icon={faCog}/></Link>
+    <Link to="/profile"><img className="avatar" src="https://unclogwarrior.s3.amazonaws.com/blank-profile-picture.png"/></Link>
   </React.Fragment>
 )
 

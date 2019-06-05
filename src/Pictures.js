@@ -67,7 +67,9 @@ class Pictures extends Component {
   }
 
   render () {
-    const pictures = this.state.pictures.map(picture => (
+    const pictures = this.state.pictures.filter(function (pic) {
+      return pic.description !== 'Profile'
+    }).map(picture => (
       <Card key={picture._id}>
         <Card.Header className="card-header"><p>@{picture.owner.username || 'unknown'}</p></Card.Header>
         <Link to={'/uploads/' + picture._id}><Card.Img variant="top" src={picture.url} /></Link>
