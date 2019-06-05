@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Grand+Hotel&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap');
 
 $charcoal: #bbb;
 
@@ -19,11 +20,45 @@ header > a:hover {
 
 .avatar {
   width: 50px;
-  border-radius: 25%;
+  border-radius: 50%;
 }
 
 .duck-header {
   width: 80px;
+}
+
+.header-input {
+  background-color: #fafafa;
+  border: 0;
+  border-radius: 3px;
+  outline: 0;
+}
+
+input {
+  font-family: 'FontAwesome', 'Lato';
+}
+
+.search-icon {
+  margin: auto 5px;
+  font-size: 12px;
+  color: #c9c5c5;
+}
+
+.searchbar-div {
+  background-color: #fafafa;
+  border: solid 1px #dbdbdb;
+}
+
+.header-left {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-left: 125px;
+}
+
+.header-right {
+  margin-right: 125px;
 }
 
 .main-header {
@@ -31,6 +66,8 @@ header > a:hover {
   background-color: white;
   border-bottom: 1px solid $charcoal;
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   height: 70px;
   padding: 0 20px;
   position: fixed;

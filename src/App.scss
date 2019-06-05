@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap');
+
 $success: #c7f282;
 $warning: #f1e681;
 $error: #f08181;
@@ -5,8 +7,10 @@ $charcoal: #ccc;
 $body: #fafafa;
 $link: #3897f0;
 
-html, #root {
+html,
+#root {
   background-color: $body;
+  font-family: 'Lato', sans-serif;
 }
 
 .flash-success,
@@ -57,21 +61,36 @@ img {
   width: 80vw;
 }
 
+.avatar-pictures {
+  border-radius: 50px;
+  height: 32px;
+  width: 32px;
+}
+
 .card {
   margin-top: 25px;
   width: 46vw;
 }
 
 .card-header {
+  align-items: center;
   background-color: white;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: left;
+  padding: 0 auto;
 }
 
 .card-footer {
   background-color: white;
   padding-bottom: 0;
+}
+
+.card-picture-p {
+  margin-left: 10px;
+  margin-top: 15px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
 }
 
 .card-text {
@@ -98,6 +117,10 @@ img {
   border: 0;
 }
 
+.mb-3 {
+  border: 0;
+}
+
 .icon {
   font-size: 35px;
 }
@@ -117,6 +140,10 @@ img {
 
 .modal-title {
   margin: 0 auto;
+}
+
+.picture-description {
+  font-size: 15px;
 }
 
 .profile-header {

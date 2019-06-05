@@ -79,7 +79,9 @@ class Pictures extends Component {
       return pic.description !== 'Profile'
     }).map(picture => (
       <Card key={picture._id}>
-        <Card.Header className="card-header"><p>@{picture.owner.username || 'unknown'}</p></Card.Header>
+        <Card.Header className="card-header">
+          <Card.Img src={picture.owner.profile} className="avatar-pictures"/>
+          <p className="card-picture-p">{picture.owner.username || 'unknown'}</p></Card.Header>
         <Link to={'/uploads/' + picture._id}><Card.Img variant="top" src={picture.url} /></Link>
         <Card.Footer>
           { this.props.user ? (picture.likes.includes(this.props.user.username)
@@ -87,12 +89,12 @@ class Pictures extends Component {
               onClick={this.smashThatLike} id={picture._id}/>
             : <Card.Img className="duck-like" src="https://i.imgur.com/nWCiT5Z.png"
               onClick={this.smashThatLike} id={picture._id}/>) : '' }
-          <Card.Text>liked by {picture.likes.length} ducks</Card.Text>
-          <Card.Text><b>@{picture.owner.username || 'unknown'} - </b>{picture.title || picture.description} #{picture.tag || 'notags'}</Card.Text>
+          <Card.Text>liked by <b>{picture.likes.length}</b> ducks</Card.Text>
+          <Card.Text className="picture-description"><b>@{picture.owner.username || 'unknown'} - </b>{picture.title || picture.description} #{picture.tag || 'notags'}</Card.Text>
           {picture.comments.map(comment =>
-            <Card.Text key={comment._id}><b><small>{comment.owner.username || comment.owner._id} </small></b><small>{comment.text}</small></Card.Text>
+            <Card.Text key={comment._id} className="picture-description"><b>{comment.owner.username || comment.owner._id} - </b>{comment.text}</Card.Text>
           )}
-          <Card.Text><small className="text-muted">Last updated {moment(picture.updatedAt).fromNow()}</small></Card.Text>
+          <Card.Text><small className="text-muted">{moment(picture.createdAt).fromNow()}</small></Card.Text>
         </Card.Footer>
         {this.props.user ? <Card.Footer>
           <InputGroup className="mb-3">
