@@ -72,10 +72,15 @@ class Pictures extends Component {
         <Card.Header className="card-header"><p>@{picture.owner.username || 'unknown'}</p></Card.Header>
         <Link to={'/uploads/' + picture._id}><Card.Img variant="top" src={picture.url} /></Link>
         <Card.Footer>
-          { this.props.user ? (picture.likes.includes(this.props.user._id) ? <Card.Img className="duck-like" src='https://i.imgur.com/1gqZnEN.png' onClick={this.smashThatLike} id={picture._id}/> : <Card.Img className="duck-like" src="https://i.imgur.com/nWCiT5Z.png" onClick={this.smashThatLike} id={picture._id}/>) : 'no' }
-          <Card.Text><b>@{picture.owner.username || 'unknown'} - </b>{picture.title || picture.description}</Card.Text>
-          <Card.Text>#{picture.tag || 'notags'}</Card.Text>
-          <small className="text-muted">Last updated {moment(picture.updatedAt).fromNow()}</small>
+          { this.props.user ? (picture.likes.includes(this.props.user._id) ? <Card.Img className="duck-like" src='https://i.imgur.com/1gqZnEN.png' onClick={this.smashThatLike} id={picture._id}/> : <Card.Img className="duck-like" src="https://i.imgur.com/nWCiT5Z.png" onClick={this.smashThatLike} id={picture._id}/>) : '' }
+          <Card.Text>liked by {picture.likes.length} ducks</Card.Text>
+          <Card.Text><b>@{picture.owner.username || 'unknown'} - </b>{picture.title || picture.description} #{picture.tag || 'notags'}</Card.Text>
+          {picture.comments.map(comment =>
+            <Card.Text key={comment._id}><b><small>{comment.owner} </small></b><small>{comment.text}</small></Card.Text>
+          )}
+          <Card.Text><small className="text-muted">Last updated {moment(picture.updatedAt).fromNow()}</small></Card.Text>
+        </Card.Footer>
+        {this.props.user ? <Card.Footer>
           <InputGroup className="mb-3">
             <FormControl className="form-border"
               name="comment"
@@ -88,6 +93,7 @@ class Pictures extends Component {
             </InputGroup.Append>
           </InputGroup>
         </Card.Footer>
+          : '' }
       </Card>
     ))
 

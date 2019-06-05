@@ -14,6 +14,7 @@ header > a {
 
 header > a:hover {
   text-decoration: none;
+  color: #171717;
 }
 
 .avatar {
@@ -22,26 +23,26 @@ header > a:hover {
 }
 
 .duck-header {
-  width: 85px;
+  width: 80px;
 }
 
 .main-header {
   align-items: center;
+  background-color: white;
   border-bottom: 1px solid $charcoal;
   display: flex;
-  height: 100px;
+  height: 70px;
   padding: 0 20px;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 10;
 
   a,
   span {
     font-size: 1.2em;
     margin: 0 15px;
   }
-}
-
-.main-header {
-  background-color: white;
-  height: 80px;
 }
 
 .main-header > nav {

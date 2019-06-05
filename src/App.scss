@@ -68,8 +68,14 @@ img {
   flex-direction: row;
   justify-content: space-between;
 }
+
 .card-footer {
   background-color: white;
+  padding-bottom: 0;
+}
+
+.card-text {
+  margin-bottom: 5px;
 }
 
 .comment-button {
@@ -84,12 +90,29 @@ img {
 }
 
 .duck-like {
-  width: 40px;
+  width: 24px;
+  margin-bottom: 10px;
 }
 
 .form-border {
   border: 0;
-  margin-bottom: 0;
+}
+
+.modal-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+}
+
+.modal-dialog {
+  text-align: center;
+  width: 400px;
+}
+
+.modal-title {
+  margin: 0 auto;
 }
 
 .profile-header {
@@ -117,6 +140,10 @@ img {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+ol {
+  margin-top: 75px;
 }
 
 .single-post {
