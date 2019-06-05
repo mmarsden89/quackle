@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 // import { Link, Redirect } from 'react-router-dom'
 import { withRouter } from 'react-router-dom'
-// import Card from 'react-bootstrap/Card'
 import Image from 'react-bootstrap/Image'
+import Modal from 'react-bootstrap/Modal'
 
 import apiUrl from './apiConfig'
 import axios from 'axios'
@@ -10,7 +10,10 @@ import axios from 'axios'
 class Profile extends Component {
   constructor (props) {
     super(props)
-    console.log('these are props', props)
+
+    this.handleShow = this.handleShow.bind(this)
+    this.handleClose = this.handleClose.bind(this)
+
     this.state = {
       pictures: [],
       upload: {
@@ -18,9 +21,19 @@ class Profile extends Component {
         tag: '',
         url: '',
         owner: ''
-      }
+      },
+      show: false
     }
   }
+
+  handleClose () {
+    this.setState({ show: false })
+  }
+
+  handleShow () {
+    this.setState({ show: true })
+  }
+
   profile = 'Profile'
 
   async componentDidMount () {
@@ -80,17 +93,24 @@ class Profile extends Component {
 
     return (
       <div>
+        <Modal show={this.state.show} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Update Profile Picture</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <form id="create" encType="multipart/form-data" onSubmit={this.onCreateProfile}>
+              <input type='file' name="picture" onChange={this.props.onChange} />
+              <input type="hidden" name="description" value="Profile"/>
+              <input id="btnCreatePicture" type="submit" className="btn btn-secondary" onClick={this.handleClose}/>
+            </form>
+          </Modal.Body>
+        </Modal>
         <div className="profile-header">
           <label htmlFor='single'>
-            <Image className="avatar" src={user.profile}
-              onMouseOver={e => (e.currentTarget.src = 'https://unclogwarrior.s3.amazonaws.com/camera.jpg')}
-              onMouseLeave={e => (e.currentTarget.src = user.profile)}/>
           </label>
-          <form id="create" encType="multipart/form-data" onSubmit={this.onCreateProfile} className="upload-container">
-            <input type='file' name="picture" onChange={this.props.onChange} />
-            <input type="hidden" name="description" value="Profile"/>
-            <input id="btnCreatePicture" type="submit" className="btn btn-secondary"/>
-          </form>
+          <Image className="avatar" src={user.profile}
+            onMouseOver={e => (e.currentTarget.src = 'https://unclogwarrior.s3.amazonaws.com/camera.jpg')}
+            onMouseLeave={e => (e.currentTarget.src = user.profile)} onClick={this.handleShow}/>
           <h5>{user.username || user._id}</h5>
         </div>
         <div className="profile-images-container" >

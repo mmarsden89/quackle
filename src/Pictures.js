@@ -15,7 +15,8 @@ class Pictures extends Component {
 
     this.state = {
       pictures: [],
-      comment: ''
+      comment: '',
+      liked: false
     }
   }
 
@@ -23,6 +24,10 @@ class Pictures extends Component {
     const response = await axios(`${apiUrl}/uploads`)
     this.setState({ pictures: response.data.uploads })
   }
+
+  toggleLike = () => this.setState(prevState => {
+    return { liked: !prevState.liked }
+  })
 
   handleChange = event => {
   // handle change
@@ -51,9 +56,11 @@ class Pictures extends Component {
         }
       }
     })
+    this.componentDidMount()
   }
 
   smashThatLike = async event => {
+    this.toggleLike()
     const id = event.target.id
     await axios({
       url: apiUrl + `/likes/${id}`,
@@ -64,6 +71,7 @@ class Pictures extends Component {
           likes: this.props.user.username || this.props.user._id
         } }
     })
+    this.componentDidMount()
   }
 
   render () {
@@ -74,11 +82,15 @@ class Pictures extends Component {
         <Card.Header className="card-header"><p>@{picture.owner.username || 'unknown'}</p></Card.Header>
         <Link to={'/uploads/' + picture._id}><Card.Img variant="top" src={picture.url} /></Link>
         <Card.Footer>
-          { this.props.user ? (picture.likes.includes(this.props.user._id) ? <Card.Img className="duck-like" src='https://i.imgur.com/1gqZnEN.png' onClick={this.smashThatLike} id={picture._id}/> : <Card.Img className="duck-like" src="https://i.imgur.com/nWCiT5Z.png" onClick={this.smashThatLike} id={picture._id}/>) : '' }
+          { this.props.user ? (picture.likes.includes(this.props.user.username)
+            ? <Card.Img className="duck-like" src='https://i.imgur.com/1gqZnEN.png'
+              onClick={this.smashThatLike} id={picture._id}/>
+            : <Card.Img className="duck-like" src="https://i.imgur.com/nWCiT5Z.png"
+              onClick={this.smashThatLike} id={picture._id}/>) : '' }
           <Card.Text>liked by {picture.likes.length} ducks</Card.Text>
           <Card.Text><b>@{picture.owner.username || 'unknown'} - </b>{picture.title || picture.description} #{picture.tag || 'notags'}</Card.Text>
           {picture.comments.map(comment =>
-            <Card.Text key={comment._id}><b><small>{comment.owner} </small></b><small>{comment.text}</small></Card.Text>
+            <Card.Text key={comment._id}><b><small>{comment.owner.username || comment.owner._id} </small></b><small>{comment.text}</small></Card.Text>
           )}
           <Card.Text><small className="text-muted">Last updated {moment(picture.updatedAt).fromNow()}</small></Card.Text>
         </Card.Footer>
