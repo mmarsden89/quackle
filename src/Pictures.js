@@ -61,9 +61,23 @@ class Pictures extends Component {
     this.componentDidMount()
   }
 
+  onSendToUser = async event => {
+    console.log(event.target.dataset.pictureowner)
+    await axios({
+      url: `${apiUrl}/users/${this.props.user._id}`,
+      method: 'PATCH',
+      headers: {
+        Authorization: 'Token token=' + this.props.user.token
+      },
+      data: {
+        user: {
+          following: event.target.dataset.pictureowner
+        }
+      }
+    })
+  }
+
   handleFollow = async event => {
-    console.log(event.target.id)
-    console.log(event.target.dataset.id)
     const id = event.target.id
     await axios({
       url: apiUrl + `/follow/${id}`,
@@ -75,6 +89,7 @@ class Pictures extends Component {
         }
       }
     })
+      .then(this.onSendToUser(event))
   }
 
   smashThatLike = async event => {
@@ -118,7 +133,7 @@ class Pictures extends Component {
         <Card.Header className="card-header">
           <Link to={'/profile/' + picture.owner._id}><Card.Img src={picture.owner.profile} className="avatar-pictures"/></Link>
           <Link to={'/profile/' + picture.owner._id} className="nohover"><p className="card-picture-p">{picture.owner.username || 'unknown'}</p></Link>
-          {this.props.user ? (picture.owner._id === this.props.user._id ? <h3 className="card-header-right">...</h3> : <Button onClick={this.handleFollow} data-id={this.props.user.username || this.props.user._id} id={picture.owner._id} className="card-header-right">Follow</Button>) : ''}
+          {this.props.user ? (picture.owner._id === this.props.user._id ? <h3 className="card-header-right">...</h3> : <Button onClick={this.handleFollow} data-id={this.props.user.username || this.props.user.email} id={picture.owner._id} data-pictureowner={picture.owner.username || picture.owner.email} className="card-header-right">Follow</Button>) : ''}
         </Card.Header>
         <Link to={'/uploads/' + picture._id}><Card.Img variant="top" src={picture.url} /></Link>
         <Card.Footer>
