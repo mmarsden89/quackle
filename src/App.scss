@@ -191,7 +191,7 @@ ol {
 }
 
 .sidebar-div {
-  margin-top: 200px;
+  margin-top: 175px;
   position: fixed;
   right: 16%;
 }
@@ -201,6 +201,18 @@ ol {
   overflow: hidden;
   overflow-y: scroll;
   width: 275px;
+}
+
+.sidebar-userless {
+  margin-top: 100px;
+  position: fixed;
+  right: 16%;
+}
+
+.sidebar-user {
+  margin-top: 125px;
+  position: fixed;
+  right: 27.5%;
 }
 
 .sidebar-small {
@@ -213,6 +225,7 @@ ol {
   font-size: 12px;
   margin: 0 0 0 15px;
 }
+
 
 .sidebar-container {
   align-items: center;

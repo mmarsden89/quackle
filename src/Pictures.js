@@ -80,7 +80,14 @@ class Pictures extends Component {
 
   render () {
     console.log(this.state.users)
-    const users = this.state.users.map(user => (
+    const currentUser = (
+      <div>
+        {this.props.user ? <img src={this.props.user.profile} className="avatar-pictures"/> : ''}
+        {this.props.user ? <p>{this.props.user.username || this.props.user.email}</p> : ''}
+      </div>
+    )
+
+    const users = this.state.users.reverse().map(user => (
       <div key={user._id} className="sidebar-container">
         <Link to={'/profile/' + user._id}><Card.Img src={user.profile} className="avatar-pictures"/></Link>
         <div>
@@ -91,7 +98,7 @@ class Pictures extends Component {
     ))
     const pictures = this.state.pictures.filter(function (pic) {
       return pic.description !== 'Profile'
-    }).map(picture => (
+    }).reverse().map(picture => (
       <Card key={picture._id} className="card">
         <Card.Header className="card-header">
           <Card.Img src={picture.owner.profile} className="avatar-pictures"/>
@@ -129,7 +136,10 @@ class Pictures extends Component {
 
     return (
       <div>
-        <div className="sidebar-div">
+        <div className="sidebar-user">
+          {currentUser}
+        </div>
+        <div className={this.props.user ? 'sidebar-div' : 'sidebar-userless'}>
           <Card className="sidebar-card">
             <Card.Header>users</Card.Header>
             {users}
