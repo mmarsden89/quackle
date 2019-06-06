@@ -21,6 +21,8 @@ class Pictures extends Component {
     }
   }
 
+  currentUserInfo = this.props.user
+
   async componentDidMount () {
     const response = await axios(`${apiUrl}/uploads`)
     this.setState({ pictures: response.data.uploads })
@@ -79,11 +81,12 @@ class Pictures extends Component {
   }
 
   render () {
-    console.log(this.state.users)
     const currentUser = (
       <div>
-        {this.props.user ? <img src={this.props.user.profile} className="avatar-pictures"/> : ''}
-        {this.props.user ? <p>{this.props.user.username || this.props.user.email}</p> : ''}
+        <span>
+          {this.props.user ? <img src={this.props.user.profile} className="avatar-pictures"/> : ''}
+          {this.props.user ? <p className="sidebar-p-span">{ this.props.user.username || this.props.user.email}</p> : ''}
+        </span>
       </div>
     )
 
@@ -91,7 +94,7 @@ class Pictures extends Component {
       <div key={user._id} className="sidebar-container">
         <Link to={'/profile/' + user._id}><Card.Img src={user.profile} className="avatar-pictures"/></Link>
         <div>
-          <p className="sidebar-small">{user.username || user.email}</p>
+          <Link to={'/profile/' + user._id}><p className="sidebar-small">{user.username || user.email}</p></Link>
           <p className="sidebar-super-small">{moment(user.updatedAt).fromNow()}</p>
         </div>
       </div>
@@ -101,7 +104,7 @@ class Pictures extends Component {
     }).reverse().map(picture => (
       <Card key={picture._id} className="card">
         <Card.Header className="card-header">
-          <Card.Img src={picture.owner.profile} className="avatar-pictures"/>
+          <Link to={'/profile/' + picture.owner._id}><Card.Img src={picture.owner.profile} className="avatar-pictures"/></Link>
           <Link to={'/profile/' + picture.owner._id} className="nohover"><p className="card-picture-p">{picture.owner.username || 'unknown'}</p></Link></Card.Header>
         <Link to={'/uploads/' + picture._id}><Card.Img variant="top" src={picture.url} /></Link>
         <Card.Footer>

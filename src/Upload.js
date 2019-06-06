@@ -58,7 +58,7 @@ class Upload extends Component {
         <form id="create" encType="multipart/form-data" onSubmit={this.onCreatePicture} className="upload-container">
           <input required type="text" name="description" placeholder="Title" onChange={this.handleChange} maxLength="160"/>
           <input type="text" name="tag" placeholder="#Tag" onChange={this.handleChange}/>
-          <input required type="file" name="picture" onChange={this.handleChange}/>
+          <input required type="file" name="picture" accept="image/*" onChange={this.handleChange}/>
           <input id="btnCreatePicture" type="submit" className="btn btn-secondary"/>
         </form>
       </div>

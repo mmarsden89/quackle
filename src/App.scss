@@ -116,8 +116,9 @@ img {
 }
 
 .duck-like {
-  width: 24px;
+  cursor: pointer;
   margin-bottom: 10px;
+  width: 24px;
 }
 
 .form-border {
@@ -212,7 +213,11 @@ ol {
 .sidebar-user {
   margin-top: 125px;
   position: fixed;
-  right: 27.5%;
+  right: 25%;
+}
+
+.sidebar-p-span {
+  
 }
 
 .sidebar-small {
@@ -241,4 +246,8 @@ ol {
   flex-direction: column;
   height: 100vh;
   justify-content: center;
+}
+
+span > * {
+  display: inline-block;
 }
