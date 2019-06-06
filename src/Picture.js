@@ -21,8 +21,6 @@ class Picture extends Component {
   async componentDidMount () {
     const response = await axios(`${apiUrl}/uploads/${this.props.match.params.id}`)
     this.setState({ picture: response.data.upload })
-    console.log(response)
-    console.log(this.state.picture.url)
   }
 
   smashThatLike = async event => {

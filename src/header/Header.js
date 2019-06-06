@@ -12,7 +12,9 @@ class Header extends Component {
     super(props)
     this.state = {
       users: [],
-      pictures: []
+      pictures: [],
+      search: {},
+      searchreturn: ''
     }
   }
   async componentDidMount () {
@@ -22,7 +24,26 @@ class Header extends Component {
     this.setState({ users: userResponse.data.users })
   }
 
+  handleChange = event => {
+    const updatedField = event.target.value
+    const search = updatedField
+    this.setState({ search: search })
+    this.state.pictures.map(picture => {
+      if (picture.owner.username) {
+        if (picture.owner.username.includes(this.state.search)) {
+          this.setState({ searchreturn: picture.owner.username })
+        }
+      } else if (picture.owner.email) {
+        if (picture.owner.email.includes(this.state.search)) {
+          this.setState({ searchreturn: picture.owner.email })
+        }
+      }
+    })
+  }
+
   render () {
+    const search = this.state.searchreturn
+
     return (
       <header className="main-header">
         <div className="header-left">
@@ -31,7 +52,7 @@ class Header extends Component {
         </div>
         <div className="searchbar-div">
           <FontAwesomeIcon className="search-icon" icon={faSearch}/>
-          <input className="header-input" placeholder="Search"/>
+          <input className="header-input" placeholder="Search" name="search" onChange={this.handleChange}/>
         </div>
         <div className="header-right">
           { this.props.user
@@ -44,6 +65,7 @@ class Header extends Component {
               <Link to="/sign-in">Sign In</Link>
             </nav>}
         </div>
+        {this.state.search.length > 0 ? <ol><li>{search}</li></ol> : ''}
       </header>
     )
   }
