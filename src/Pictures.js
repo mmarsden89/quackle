@@ -28,7 +28,6 @@ class Pictures extends Component {
     this.setState({ pictures: response.data.uploads })
     const userResponse = await axios(`${apiUrl}/users`)
     this.setState({ users: userResponse.data.users })
-    console.log(userResponse)
   }
 
   toggleLike = () => this.setState(prevState => {
@@ -41,15 +40,12 @@ class Pictures extends Component {
       [event.target.name]: event.target.value
     }
     const comment = Object.assign(this.state.comment, updatedField)
-    console.log(comment)
     this.setState({ comment: comment.comment })
   }
+
   createComment = async event => {
     event.preventDefault()
     const id = event.target.id
-    console.log(id)
-    console.log(this.state.comment)
-    console.log(this.props)
     await axios({
       url: apiUrl + '/comments',
       method: 'POST',
