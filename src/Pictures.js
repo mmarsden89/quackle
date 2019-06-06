@@ -81,15 +81,18 @@ class Pictures extends Component {
   render () {
     console.log(this.state.users)
     const users = this.state.users.map(user => (
-      <div key={user._id}>
-        <span><Card.Img src={user.profile} className="avatar-pictures"/>
-          <p>{user.username || user.email}</p></span>
+      <div key={user._id} className="sidebar-container">
+        <Link to={'/profile/' + user._id}><Card.Img src={user.profile} className="avatar-pictures"/></Link>
+        <div>
+          <p className="sidebar-small">{user.username || user.email}</p>
+          <p className="sidebar-super-small">{moment(user.updatedAt).fromNow()}</p>
+        </div>
       </div>
     ))
     const pictures = this.state.pictures.filter(function (pic) {
       return pic.description !== 'Profile'
     }).map(picture => (
-      <Card key={picture._id}>
+      <Card key={picture._id} className="card">
         <Card.Header className="card-header">
           <Card.Img src={picture.owner.profile} className="avatar-pictures"/>
           <Link to={'/profile/' + picture.owner._id} className="nohover"><p className="card-picture-p">{picture.owner.username || 'unknown'}</p></Link></Card.Header>

@@ -68,9 +68,10 @@ img {
 }
 
 .card {
+  margin-left: 0;
   margin-top: 25px;
+  margin-bottom: 7px;
   width: 600px;
-  margin-left: 2%;
 }
 
 .card-header {
@@ -181,7 +182,8 @@ img {
 
 ol {
   margin-top: 100px;
-  width: 100vw;
+  margin-left: 0 !important;
+  width: 100%;
 }
 
 .single-post {
@@ -189,20 +191,35 @@ ol {
 }
 
 .sidebar-div {
+  margin-top: 200px;
   position: fixed;
-  right: 15%;
-  margin-top: 100px;
+  right: 16%;
 }
 
 .sidebar-card {
-  width: 300px;
-  height: 200px;
+  height: 250px;
   overflow: hidden;
   overflow-y: scroll;
+  width: 275px;
 }
 
-span > * {
-  display: inline-block;
+.sidebar-small {
+  font-weight: 700;
+  margin: 0 0 0 15px;
+}
+
+.sidebar-super-small {
+  color: rgb(133, 133, 133);
+  font-size: 12px;
+  margin: 0 0 0 15px;
+}
+
+.sidebar-container {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-left: 10px;
 }
 
 .upload-container {
