@@ -85,7 +85,7 @@ class Pictures extends Component {
       <div>
         <span>
           {this.props.user ? <img src={this.props.user.profile} className="avatar-pictures"/> : ''}
-          {this.props.user ? <p className="sidebar-p-span">{ this.props.user.username || this.props.user.email}</p> : ''}
+          {this.props.user ? <p className="sidebar-p-span">&nbsp;&nbsp;&nbsp;&nbsp;{ this.props.user.username || this.props.user.email}</p> : ''}
         </span>
       </div>
     )

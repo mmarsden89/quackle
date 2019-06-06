@@ -31,17 +31,25 @@ h1 {
   background-color: #fafafa;
   border: 0;
   border-radius: 3px;
-  color: rgb(68, 68, 68);
+  color: #c9c5c5;
   outline: 0;
+}
+.header-input:focus {
+  color: rgb(68, 68, 68);
 }
 
 input {
   font-family: 'FontAwesome', 'Lato';
 }
 
+
 .search-icon {
   margin: auto 5px;
   font-size: 12px;
+  color: #c9c5c5;
+}
+
+::placeholder {
   color: #c9c5c5;
 }
 
