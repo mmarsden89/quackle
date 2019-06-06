@@ -9,6 +9,10 @@ import SignIn from './auth/components/SignIn'
 import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
 import Upload from './Upload'
+import Pictures from './Pictures'
+import Picture from './Picture'
+import Profile from './Profile'
+import Settings from './Settings'
 
 import Alert from 'react-bootstrap/Alert'
 
@@ -44,6 +48,18 @@ class App extends Component {
           </Alert>
         ))}
         <main className="container">
+          <Route exact path='/settings' render={() => (
+            <Settings match={this.match} user={this.state.user} />
+          )} />
+          <Route exact path='/' render={() => (
+            <Pictures alert={this.alert} match={this.match} user={this.state.user} />
+          )} />
+          <Route exact path='/profile/:id' render={() => (
+            <Profile alert={this.alert} match={this.match} user={this.state.user} />
+          )} />
+          <Route path='/uploads/:id' render={() => (
+            <Picture alert={this.alert} match={this.match} user={this.state.user} />
+          )} />
           <Route path='/sign-up' render={() => (
             <SignUp alert={this.alert} setUser={this.setUser} />
           )} />

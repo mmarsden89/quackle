@@ -1,11 +1,88 @@
+@import url('https://fonts.googleapis.com/css?family=Grand+Hotel&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap');
+
 $charcoal: #bbb;
+
+
+h1 {
+  font-family: 'Grand Hotel', cursive;
+}
+
+.header-h1 {
+  color: black;
+  text-decoration: none;
+}
+
+.header-h1:hover {
+  text-decoration: none;
+  color: #292828;
+}
+
+.avatar {
+  width: 50px;
+  border-radius: 50%;
+}
+
+.duck-header {
+  width: 80px;
+}
+
+.header-input {
+  background-color: #fafafa;
+  border: 0;
+  border-radius: 3px;
+  color: #c9c5c5;
+  outline: 0;
+}
+.header-input:focus {
+  color: rgb(68, 68, 68);
+}
+
+input {
+  font-family: 'FontAwesome', 'Lato';
+}
+
+
+.search-icon {
+  margin: auto 5px;
+  font-size: 12px;
+  color: #c9c5c5;
+}
+
+::placeholder {
+  color: #c9c5c5;
+}
+
+.searchbar-div {
+  background-color: #fafafa;
+  border: solid 1px #dbdbdb;
+}
+
+.header-left {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-left: 125px;
+}
+
+.header-right {
+  margin-right: 125px;
+}
 
 .main-header {
   align-items: center;
+  background-color: white;
   border-bottom: 1px solid $charcoal;
   display: flex;
-  height: 100px;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 70px;
   padding: 0 20px;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 10;
 
   a,
   span {
@@ -24,7 +101,7 @@ $charcoal: #bbb;
 @media (max-width: 600px) {
   .main-header {
     flex-direction: column;
-    font-size: 0.7em;
+    font-size: .7em;
     height: auto;
     padding: 10px;
 

@@ -1,36 +1,31 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCog, faCameraRetro, faSearch } from '@fortawesome/free-solid-svg-icons'
 
 import './Header.scss'
 
-const authenticatedOptions = (
-  <React.Fragment>
-    <Link to="/upload">Upload</Link>
-    <Link to="/change-password">Change Password</Link>
-    <Link to="/sign-out">Sign Out</Link>
-  </React.Fragment>
-)
-
-const unauthenticatedOptions = (
-  <React.Fragment>
-    <Link to="/sign-up">Sign Up</Link>
-    <Link to="/sign-in">Sign In</Link>
-  </React.Fragment>
-)
-
-const alwaysOptions = (
-  <React.Fragment>
-    <Link to="/">Home</Link>
-  </React.Fragment>
-)
-
 const Header = ({ user }) => (
   <header className="main-header">
-    <h1>duckPics</h1>
-    <nav>
-      { user ? authenticatedOptions : unauthenticatedOptions }
-      { alwaysOptions }
-    </nav>
+    <div className="header-left">
+      <img className='duck-header' src="https://i.imgur.com/8xwTCdE.png"/>
+      <Link to="/" className="header-h1"><h1>duckPics</h1></Link>
+    </div>
+    <div className="searchbar-div">
+      <FontAwesomeIcon className="search-icon" icon={faSearch}/>
+      <input className="header-input" placeholder="Search"/>
+    </div>
+    <div className="header-right">
+      { user
+        ? <nav>
+          <Link to="/upload"><FontAwesomeIcon className="icon" icon={faCameraRetro}/></Link>
+          <Link to="/settings"><FontAwesomeIcon className="icon" icon={faCog}/></Link>
+          <Link to={'/profile/' + user._id}><img className="avatar" src={user.profile}/></Link>
+        </nav> : <nav>
+          <Link to="/sign-up">Sign Up</Link>
+          <Link to="/sign-in">Sign In</Link>
+        </nav>}
+    </div>
   </header>
 )
 
