@@ -61,6 +61,22 @@ class Pictures extends Component {
     this.componentDidMount()
   }
 
+  handleFollow = async event => {
+    console.log(event.target.id)
+    console.log(event.target.dataset.id)
+    const id = event.target.id
+    await axios({
+      url: apiUrl + `/follow/${id}`,
+      method: 'PATCH',
+      headers: { Authorization: 'Token token=' + this.props.user.token },
+      data: {
+        user: {
+          followers: event.target.dataset.id
+        }
+      }
+    })
+  }
+
   smashThatLike = async event => {
     this.toggleLike()
     const id = event.target.id
@@ -101,7 +117,9 @@ class Pictures extends Component {
       <Card key={picture._id} className="card">
         <Card.Header className="card-header">
           <Link to={'/profile/' + picture.owner._id}><Card.Img src={picture.owner.profile} className="avatar-pictures"/></Link>
-          <Link to={'/profile/' + picture.owner._id} className="nohover"><p className="card-picture-p">{picture.owner.username || 'unknown'}</p></Link></Card.Header>
+          <Link to={'/profile/' + picture.owner._id} className="nohover"><p className="card-picture-p">{picture.owner.username || 'unknown'}</p></Link>
+          {this.props.user ? (picture.owner._id === this.props.user._id ? <h3 className="card-header-right">...</h3> : <Button onClick={this.handleFollow} data-id={this.props.user.username || this.props.user._id} id={picture.owner._id} className="card-header-right">Follow</Button>) : ''}
+        </Card.Header>
         <Link to={'/uploads/' + picture._id}><Card.Img variant="top" src={picture.url} /></Link>
         <Card.Footer>
           { this.props.user ? (picture.likes.includes(this.props.user.username)
