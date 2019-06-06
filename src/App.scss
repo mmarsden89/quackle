@@ -69,7 +69,8 @@ img {
 
 .card {
   margin-top: 25px;
-  width: 46vw;
+  width: 600px;
+  margin-left: 2%;
 }
 
 .card-header {
@@ -180,10 +181,28 @@ img {
 
 ol {
   margin-top: 100px;
+  width: 100vw;
 }
 
 .single-post {
   margin-bottom: 50px;
+}
+
+.sidebar-div {
+  position: fixed;
+  right: 15%;
+  margin-top: 100px;
+}
+
+.sidebar-card {
+  width: 300px;
+  height: 200px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+span > * {
+  display: inline-block;
 }
 
 .upload-container {

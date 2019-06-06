@@ -16,13 +16,17 @@ class Pictures extends Component {
     this.state = {
       pictures: [],
       comment: '',
-      liked: false
+      liked: false,
+      users: []
     }
   }
 
   async componentDidMount () {
     const response = await axios(`${apiUrl}/uploads`)
     this.setState({ pictures: response.data.uploads })
+    const userResponse = await axios(`${apiUrl}/users`)
+    this.setState({ users: userResponse.data.users })
+    console.log(userResponse)
   }
 
   toggleLike = () => this.setState(prevState => {
@@ -75,6 +79,13 @@ class Pictures extends Component {
   }
 
   render () {
+    console.log(this.state.users)
+    const users = this.state.users.map(user => (
+      <div key={user._id}>
+        <span><Card.Img src={user.profile} className="avatar-pictures"/>
+          <p>{user.username || user.email}</p></span>
+      </div>
+    ))
     const pictures = this.state.pictures.filter(function (pic) {
       return pic.description !== 'Profile'
     }).map(picture => (
@@ -115,6 +126,12 @@ class Pictures extends Component {
 
     return (
       <div>
+        <div className="sidebar-div">
+          <Card className="sidebar-card">
+            <Card.Header>users</Card.Header>
+            {users}
+          </Card>
+        </div>
         <div className="pictures">
           <h5>Total images: {pictures.length}</h5>
         </div>
