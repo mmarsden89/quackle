@@ -15,7 +15,8 @@ class Pictures extends Component {
       pictures: [],
       comment: '',
       liked: false,
-      users: []
+      users: [],
+      followed: false
     }
   }
 
@@ -28,6 +29,10 @@ class Pictures extends Component {
     this.setState({ users: userResponse.data.users })
     this.setState({ comment: '' })
   }
+
+  toggleFollow = () => this.setState(prevState => {
+    return { followed: !prevState.followed }
+  })
 
   toggleLike = () => this.setState(prevState => {
     return { liked: !prevState.liked }
@@ -86,6 +91,7 @@ class Pictures extends Component {
   }
 
   handleFollow = async event => {
+    this.toggleFollow()
     const id = event.target.id
     await axios({
       url: apiUrl + `/follow/${id}`,
@@ -98,6 +104,7 @@ class Pictures extends Component {
       }
     })
       .then(this.onSendToUser(event))
+    this.componentDidMount()
   }
 
   smashThatLike = async event => {
@@ -143,8 +150,8 @@ class Pictures extends Component {
           <Link to={'/profile/' + picture.owner._id}><Card.Img src={picture.owner.profile} className="avatar-pictures"/></Link>
           <Link to={'/profile/' + picture.owner._id} className="nohover"><p className="card-picture-p">{picture.owner.username || 'unknown'}</p></Link>
           {this.props.user ? (picture.owner._id === this.props.user._id ? <Button onClick={this.deletePost} id={picture._id} className="card-header-right btn-danger">Delete</Button>
-            : <Button onClick={this.handleFollow} data-id={this.props.user.username || this.props.user.email} id={picture.owner._id}
-              data-pictureowner={picture.owner.username || picture.owner.email} className="card-header-right">Follow</Button>) : ''}
+            : (this.props.user.following.includes(picture.owner._id || picture.owner.username) ? <Button className="btn-secondary card-header-right" onClick={this.handleFollow} data-id={this.props.user.username || this.props.user.email} id={picture.owner._id} data-pictureowner={picture.owner.username || picture.owner.email}>unfollow</Button> : <Button onClick={this.handleFollow} data-id={this.props.user.username || this.props.user.email} id={picture.owner._id}
+              data-pictureowner={picture.owner.username || picture.owner.email} className="card-header-right">Follow</Button>)) : ''}
         </Card.Header>
         <Link to={'/uploads/' + picture._id}><Card.Img variant="top" src={picture.url} /></Link>
         <Card.Footer className="comment-section">
