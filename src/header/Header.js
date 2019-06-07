@@ -14,7 +14,8 @@ class Header extends Component {
       users: [],
       pictures: [],
       search: {},
-      searchreturn: ''
+      searchreturn: '',
+      profile: ''
     }
   }
   async componentDidMount () {

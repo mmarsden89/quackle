@@ -68,7 +68,7 @@ class App extends Component {
             <SignOut alert={this.alert} clearUser={this.clearUser} user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/upload' render={() => (
-            <Upload alert={this.alert} user={user} />
+            <Upload alert={this.alert} match={this.match} user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword alert={this.alert} user={user} />
