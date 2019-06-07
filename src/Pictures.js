@@ -67,7 +67,7 @@ class Pictures extends Component {
 
   onSendToUser = async event => {
     await axios({
-      url: `${apiUrl}/users/${this.props.user._id}`,
+      url: `${apiUrl}/following/${this.props.user._id}`,
       method: 'PATCH',
       headers: {
         Authorization: 'Token token=' + this.props.user.token
