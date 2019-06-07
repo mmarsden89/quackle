@@ -72,6 +72,10 @@ input {
   margin-right: 125px;
 }
 
+.nav > a {
+  white-space: nowrap;
+}
+
 .nav-right {
   align-items: center;
   display: flex;
@@ -110,9 +114,6 @@ input {
 @media (max-width: 950px) {
   .searchbar-div {
     display: none;
-  }
-  .card, ol {
-    width: 100vw;
   }
 }
 

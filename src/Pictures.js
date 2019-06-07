@@ -138,7 +138,7 @@ class Pictures extends Component {
     const pictures = this.state.pictures.filter(function (pic) {
       return pic.description !== 'Profile'
     }).reverse().map(picture => (
-      <Card key={picture._id} className="card">
+      <Card key={picture._id} className="card margin-top">
         <Card.Header className="card-header">
           <Link to={'/profile/' + picture.owner._id}><Card.Img src={picture.owner.profile} className="avatar-pictures"/></Link>
           <Link to={'/profile/' + picture.owner._id} className="nohover"><p className="card-picture-p">{picture.owner.username || 'unknown'}</p></Link>
@@ -187,12 +187,11 @@ class Pictures extends Component {
             {users}
           </Card>
         </div>
-        <div className="pictures">
-          <h5>Total images: {pictures.length}</h5>
+        <div className="container mt-5">
+          <div className="margin-top">
+            {pictures}
+          </div>
         </div>
-        <ol>
-          {pictures}
-        </ol>
       </div>
     )
   }
