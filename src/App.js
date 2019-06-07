@@ -13,8 +13,7 @@ import Pictures from './Pictures'
 import Picture from './Picture'
 import Profile from './Profile'
 import Settings from './Settings'
-
-import Alert from 'react-bootstrap/Alert'
+import AutoDismissAlert from './AutoDismissAlert'
 
 class App extends Component {
   constructor () {
@@ -41,11 +40,10 @@ class App extends Component {
       <React.Fragment>
         <Header user={user} />
         {alerts.map((alert, index) => (
-          <Alert key={index} dismissible variant={alert.type}>
-            <Alert.Heading>
-              {alert.message}
-            </Alert.Heading>
-          </Alert>
+          <AutoDismissAlert
+            key={index}
+            alert={alert}
+          />
         ))}
         <main className="container">
           <Route exact path='/settings' render={() => (

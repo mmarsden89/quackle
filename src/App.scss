@@ -67,10 +67,16 @@ img {
   width: 32px;
 }
 
+.alert {
+  position: fixed;
+  top: 8%;
+  z-index: 10;
+}
+
 .card {
+  margin-bottom: 7px;
   margin-left: 0;
   margin-top: 25px;
-  margin-bottom: 7px;
   width: 600px;
 }
 
@@ -88,12 +94,24 @@ img {
   padding-bottom: 0;
 }
 
+.card-footer-stick {
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+}
+
 .card-picture-p {
   color: black;
   font-family: 'Lato', sans-serif;
   font-weight: 700;
   margin-left: 10px;
   margin-top: 15px;
+  width: 200px;
+}
+
+.card-header-right {
+  margin-left: 45%;
+  right: 0;
 }
 
 .nohover {
@@ -131,6 +149,28 @@ img {
 
 .icon {
   font-size: 35px;
+}
+
+.image-background {
+  background-color: white;
+  border: 1px solid rgba(0, 0 , 0 , .125);
+  border-right: 0;
+  height: 600px;
+  margin-top: 100px;
+  display: flex;
+}
+
+.individual-picture {
+  align-self: center;
+  display: flex;
+  width: 600px;
+}
+
+.individual-picture-div {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .modal-container {
@@ -188,7 +228,9 @@ ol {
 }
 
 .single-post {
-  margin-bottom: 50px;
+  display: flex;
+  height: 600px;
+  margin-top: 105px;
 }
 
 .sidebar-div {
@@ -217,7 +259,13 @@ ol {
 }
 
 .sidebar-p-span {
+  color: black;
+  font-weight: 700;
   margin-right: -10px;
+}
+
+.sidebar-p-span:hover {
+  text-decoration: none !important;
 }
 
 .sidebar-small {

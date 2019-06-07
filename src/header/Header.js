@@ -56,11 +56,11 @@ class Header extends Component {
         </div>
         <div className="header-right">
           { this.props.user
-            ? <nav>
+            ? <nav className="nav-right">
               <Link to="/upload"><FontAwesomeIcon className="icon" icon={faCameraRetro}/></Link>
               <Link to="/settings"><FontAwesomeIcon className="icon" icon={faCog}/></Link>
               <Link to={'/profile/' + this.props.user._id}><img className="avatar" src={this.props.user.profile}/></Link>
-            </nav> : <nav>
+            </nav> : <nav className="nav-right">
               <Link to="/sign-up">Sign Up</Link>
               <Link to="/sign-in">Sign In</Link>
             </nav>}

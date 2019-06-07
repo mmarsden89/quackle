@@ -3,8 +3,6 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { Link, withRouter } from 'react-router-dom'
 import Card from 'react-bootstrap/Card'
-import InputGroup from 'react-bootstrap/InputGroup'
-import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 
 const moment = require('moment')
@@ -28,6 +26,7 @@ class Pictures extends Component {
     this.setState({ pictures: response.data.uploads })
     const userResponse = await axios(`${apiUrl}/users`)
     this.setState({ users: userResponse.data.users })
+    this.setState({ comment: ' ' })
   }
 
   toggleLike = () => this.setState(prevState => {
@@ -75,6 +74,16 @@ class Pictures extends Component {
         }
       }
     })
+    this.componentDidMount()
+  }
+  deletePost = async event => {
+    const id = event.target.id
+    await axios({
+      url: apiUrl + `/uploads/${id}`,
+      method: 'DELETE',
+      headers: { Authorization: 'Token token=' + this.props.user.token }
+    })
+    this.componentDidMount()
   }
 
   handleFollow = async event => {
@@ -108,11 +117,12 @@ class Pictures extends Component {
   }
 
   render () {
+    const { comment } = this.state
     const currentUser = (
       <div>
         <span>
-          {this.props.user ? <img src={this.props.user.profile} className="avatar-pictures"/> : ''}
-          {this.props.user ? <p className="sidebar-p-span">&nbsp;&nbsp;&nbsp;&nbsp;{ this.props.user.username || this.props.user.email}</p> : ''}
+          {this.props.user ? <Link to={'/profile/' + this.props.user._id}><img src={this.props.user.profile} className="avatar-pictures"/></Link> : ''}
+          {this.props.user ? <Link className="sidebar-p-span" to={'/profile/' + this.props.user._id}><p className="sidebar-p-span">&nbsp;&nbsp;&nbsp;&nbsp;{ this.props.user.username || this.props.user.email}</p></Link> : ''}
         </span>
       </div>
     )
@@ -133,7 +143,9 @@ class Pictures extends Component {
         <Card.Header className="card-header">
           <Link to={'/profile/' + picture.owner._id}><Card.Img src={picture.owner.profile} className="avatar-pictures"/></Link>
           <Link to={'/profile/' + picture.owner._id} className="nohover"><p className="card-picture-p">{picture.owner.username || 'unknown'}</p></Link>
-          {this.props.user ? (picture.owner._id === this.props.user._id ? <h3 className="card-header-right">...</h3> : <Button onClick={this.handleFollow} data-id={this.props.user.username || this.props.user.email} id={picture.owner._id} data-pictureowner={picture.owner.username || picture.owner.email} className="card-header-right">Follow</Button>) : ''}
+          {this.props.user ? (picture.owner._id === this.props.user._id ? <Button onClick={this.deletePost} id={picture._id} className="card-header-right btn-danger">Delete</Button>
+            : <Button onClick={this.handleFollow} data-id={this.props.user.username || this.props.user.email} id={picture.owner._id}
+              data-pictureowner={picture.owner.username || picture.owner.email} className="card-header-right">Follow</Button>) : ''}
         </Card.Header>
         <Link to={'/uploads/' + picture._id}><Card.Img variant="top" src={picture.url} /></Link>
         <Card.Footer>
@@ -150,17 +162,15 @@ class Pictures extends Component {
           <Card.Text><small className="text-muted">{moment(picture.createdAt).fromNow()}</small></Card.Text>
         </Card.Footer>
         {this.props.user ? <Card.Footer>
-          <InputGroup className="mb-3">
-            <FormControl className="form-border"
+          <form id={picture._id} onSubmit={this.createComment}>
+            <input
               name="comment"
               placeholder="Add a comment..."
-              aria-label="Recipient's username"
-              aria-describedby="basic-addon2"
-              onChange={this.handleChange}/>
-            <InputGroup.Append>
-              <Button id={picture._id} className="comment-button" onClick={this.createComment}>Post</Button>
-            </InputGroup.Append>
-          </InputGroup>
+              value={comment}
+              onChange={this.handleChange}
+            />
+            <Button type="submit" className="comment-button">Post</Button>
+          </form>
         </Card.Footer>
           : '' }
       </Card>
