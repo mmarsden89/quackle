@@ -32,7 +32,6 @@ class Pictures extends Component {
       this.setState({ following: following.data.user.following })
     }
     this.setState({ comment: '' })
-    console.log(this.state.following)
   }
 
   handleChange = event => {
@@ -144,10 +143,10 @@ class Pictures extends Component {
         <Card.Header className="card-header">
           <Link to={'/profile/' + picture.owner._id}><Card.Img src={picture.owner.profile} className="avatar-pictures"/></Link>
           <Link to={'/profile/' + picture.owner._id} className="nohover"><p className="card-picture-p">{picture.owner.username || 'unknown'}</p></Link>
-          {this.props.user ? (picture.owner._id === this.props.user._id ? <Button onClick={this.deletePost} id={picture._id} className="card-header-right btn-danger">Delete</Button>
-            : (this.state.following.includes(picture.owner.email || picture.owner.username) ? <Button className="btn-secondary card-header-right" onClick={this.handleFollow} data-id={this.props.user.username || this.props.user.email} id={picture.owner._id} data-pictureowner={picture.owner.username || picture.owner.email}>unfollow</Button>
+          {this.props.user ? (picture.owner._id === this.props.user._id ? <Button onClick={this.deletePost} id={picture._id} className="right btn-danger">Delete</Button>
+            : (this.state.following.includes(picture.owner.email || picture.owner.username) ? <Button className="right btn-secondary" onClick={this.handleFollow} data-id={this.props.user.username || this.props.user.email} id={picture.owner._id} data-pictureowner={picture.owner.username || picture.owner.email}>unfollow</Button>
               : <Button onClick={this.handleFollow} data-id={this.props.user.username || this.props.user.email} id={picture.owner._id}
-                data-pictureowner={picture.owner.username || picture.owner.email} className="card-header-right">Follow</Button>)) : ''}
+                data-pictureowner={picture.owner.username || picture.owner.email} className="right btn-primary">Follow</Button>)) : ''}
         </Card.Header>
         <Link to={'/uploads/' + picture._id}><Card.Img variant="top" src={picture.url} /></Link>
         <Card.Footer className="comment-section">
