@@ -44,6 +44,14 @@ input {
   font-family: 'FontAwesome', 'Lato';
 }
 
+.icon {
+  color: black;
+}
+
+.icon:hover {
+  color: #292828;
+  text-decoration: none;
+}
 
 .search-icon {
   margin: auto 5px;
