@@ -26,7 +26,7 @@ class Pictures extends Component {
     this.setState({ pictures: response.data.uploads })
     const userResponse = await axios(`${apiUrl}/users`)
     this.setState({ users: userResponse.data.users })
-    this.setState({ comment: ' ' })
+    this.setState({ comment: '' })
   }
 
   toggleLike = () => this.setState(prevState => {

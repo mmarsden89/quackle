@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap');
 
 $charcoal: #bbb;
+$body: #fafafa;
 
 
 h1 {
@@ -81,6 +82,17 @@ input {
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+
+.search-return {
+  background-color: $body;
+  border: solid 1px #dbdbdb;
+  list-style: none;
+  margin-left: -1px;
+  margin-top: 0px;
+  position: absolute;
+  width: 194px;
+  z-index: 99;
 }
 
 .main-header {

@@ -39,6 +39,11 @@ html,
   background-color: $error;
 }
 
+.avatar-profile {
+  width: 100px;
+  border-radius: 50%;
+}
+
 .auth-form {
   display: flex;
   flex-direction: column;
@@ -154,19 +159,27 @@ img {
 }
 
 .container-column {
+  align-items: center;
   display: flex;
   flex-direction: column;
 }
 
 .container-row {
+  align-items: center;
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 
 .duck-like {
   cursor: pointer;
   margin-bottom: 10px;
   width: 24px;
+}
+
+.file-input {
+  margin-left: 105px;
+  text-align: center;
 }
 
 .form-border, .form-border-s {
@@ -177,6 +190,10 @@ img {
 
 .form-border-s {
   width: 400px;
+}
+
+.hand-hover {
+  cursor: pointer;
 }
 
 .mb-3 {
@@ -244,7 +261,8 @@ img {
   display: flex;
   flex-direction: row;
   height: 200px;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  margin-top: 50px;
 }
 
 .profile-images {
@@ -337,6 +355,13 @@ img {
   margin-left: 20px;
 }
 
+.upload-input {
+  margin: 10px 0;
+  border-radius: 3px;
+  outline: 0;
+  border: solid 1px #dbdbdb;
+}
+
 span > * {
   display: inline-block;
 }
@@ -345,11 +370,17 @@ span > * {
   .sidebar-user, .sidebar-userless, .sidebar-div {
     margin-right: -10%;
   }
+  .form-border-s {
+    width: 225px;
+  }
 }
 
 @media (max-width: 991px) {
   .sidebar-user, .sidebar-userless, .sidebar-div {
     display: none;
+  }
+  .single-post {
+    margin-top: 10px;
   }
 }
 
@@ -360,30 +391,49 @@ span > * {
   .card {
     width: 100% !important;
   }
+  .individual-picture-div {
+    flex-direction: column;
+  }
+  .image-background {
+    background-color: rgba(0,0,0,0);
+    border: 0;
+  }
+  .form-border-s {
+    width: 90%;
+  }
 }
 
 @media (max-width: 770px) {
   .card-header-right {
     margin-left: 22%;
   }
-  .form-border {
+  .form-border, .form-border-s {
     width: 375px;
+  }
+  .individual-picture {
+    width: 90%;
+    margin: auto;
+  }
+  .profile-images {
+    width: 25%;
   }
 }
 
 @media (max-width: 500px) {
-  .form-border {
+  .form-border, .form-border-s {
     width: 325px;
   }
 }
 
 @media (max-width: 375px) {
-  .form-border {
+  .form-border, .form-border-s {
     width: 200px;
   }
+
   .card {
     margin-top: 25px;
   }
+
   .card-header-right {
     margin-left: -10%;
   }

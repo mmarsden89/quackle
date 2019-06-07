@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 // import { Link, Redirect } from 'react-router-dom'
-import { withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import Image from 'react-bootstrap/Image'
 import Modal from 'react-bootstrap/Modal'
 
@@ -90,7 +90,7 @@ class Profile extends Component {
     const picture = this.state.pictures.filter(function (pic) {
       return pic.owner._id === user._id
     }).map(picture => (
-      <Image key={picture._id} className="profile-images" src={picture.url}/>
+      <Link key={picture._id} to={'/uploads/' + picture._id}><Image key={picture._id} className="profile-images" src={picture.url}/></Link>
     ))
 
     return (
@@ -108,15 +108,18 @@ class Profile extends Component {
           </Modal.Body>
         </Modal>
         <div className="profile-header">
-          <Image className="avatar" src={user.profile}
-            onMouseOver={e => (e.currentTarget.src = 'https://unclogwarrior.s3.amazonaws.com/camera.jpg')}
-            onMouseLeave={e => (e.currentTarget.src = user.profile)} onClick={this.handleShow}/>
+          {this.props.user ? (user._id === this.props.user._id
+            ? <Image className="avatar-profile hand-hover" src={user.profile}
+              onMouseOver={e => (e.currentTarget.src = 'https://unclogwarrior.s3.amazonaws.com/camera.jpg')}
+              onMouseLeave={e => (e.currentTarget.src = user.profile)} onClick={this.handleShow}/>
+            : '')
+            : <Image className="avatar-profile" src={user.profile}/>}
           <div className="container-column">
             <h5>{user.username || user._id}</h5>
             <div className="container-row">
               <p>{picture.length} posts</p>
-              <p>{this.state.followers !== 1 ? this.state.followers + ' followers' : this.state.followers + ' follower'}</p>
-              <p>{this.state.following !== 1 ? this.state.following + ' following' : this.state.following + ' following'}</p>
+              <p>&nbsp;&nbsp;{this.state.followers !== 1 ? this.state.followers + ' followers' : this.state.followers + ' follower'}</p>
+              <p>&nbsp;&nbsp;{this.state.following !== 1 ? this.state.following + ' following' : this.state.following + ' following'}</p>
             </div>
           </div>
         </div>

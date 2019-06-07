@@ -53,6 +53,7 @@ class Header extends Component {
         <div className="searchbar-div">
           <FontAwesomeIcon className="search-icon" icon={faSearch}/>
           <input className="header-input" placeholder="Search" name="search" onChange={this.handleChange}/>
+          {this.state.search.length > 0 ? <ul className="search-return"><li>{search}</li></ul> : ''}
         </div>
         <div className="header-right">
           { this.props.user
@@ -65,7 +66,6 @@ class Header extends Component {
               <Link to="/sign-in">Sign In</Link>
             </nav>}
         </div>
-        {this.state.search.length > 0 ? <ol><li>{search}</li></ol> : ''}
       </header>
     )
   }

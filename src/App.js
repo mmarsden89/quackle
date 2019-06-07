@@ -46,7 +46,7 @@ class App extends Component {
           />
         ))}
         <main className="container">
-          <Route exact path='/settings' render={() => (
+          <AuthenticatedRoute exact path='/settings' render={() => (
             <Settings match={this.match} user={this.state.user} />
           )} />
           <Route exact path='/' render={() => (
