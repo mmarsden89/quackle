@@ -30,7 +30,6 @@ class Picture extends Component {
     const updatedField = {
       [event.target.name]: event.target.value
     }
-    console.log(updatedField)
     const comment = Object.assign(this.state.comment, updatedField)
     this.setState({ comment: comment.comment })
   }
@@ -59,7 +58,6 @@ class Picture extends Component {
 
   createComment = async event => {
     event.preventDefault()
-    console.log('uuuuuu', event.target)
     const id = event.target.id
     await axios({
       url: apiUrl + '/comments',
@@ -77,9 +75,7 @@ class Picture extends Component {
   }
 
   render () {
-    console.log(this.props)
     const { picture, comment } = this.state
-    console.log(picture)
     if (!picture) {
       return (
         <div>
@@ -94,22 +90,19 @@ class Picture extends Component {
           <img src={picture.url} className="individual-picture"/>
         </div>
         <Card key={picture._id} className="single-post">
-          <Card.Header className="card-header"><p>@{picture.owner.username || 'unknown'}</p></Card.Header>
-          <Card.Text><b>@{picture.owner.username || 'unknown'} - </b>{picture.title || picture.description}</Card.Text>
-          <Card.Text>#{picture.tag || 'notags'}</Card.Text>
+          <Card.Header className="card-header"><img className="avatar" src={picture.owner.profile}/><p className="card-picture-p">{picture.owner.username || 'unknown'}</p></Card.Header>
+          <Card.Text className="picture-description margin-left">{picture.title || picture.description} #{picture.tag || 'notags'}</Card.Text>
           <small className="text-muted">Last updated {moment(picture.updatedAt).fromNow()}</small>
-          <Card.Footer>
+          <Card.Footer className="single-comment-section">
             { this.props.user ? (picture.likes.includes(this.props.user.username)
               ? <Card.Img className="duck-like" src='https://i.imgur.com/1gqZnEN.png'
                 onClick={this.smashThatLike} id={picture._id}/>
               : <Card.Img className="duck-like" src="https://i.imgur.com/nWCiT5Z.png"
                 onClick={this.smashThatLike} id={picture._id}/>) : '' }
             <Card.Text>liked by <b>{picture.likes.length}</b> ducks</Card.Text>
-            <Card.Text className="picture-description"><b>@{picture.owner.username || 'unknown'} - </b>{picture.title || picture.description} #{picture.tag || 'notags'}</Card.Text>
             {picture.comments.map(comment =>
               <Card.Text key={comment._id} className="picture-description"><b>{comment.owner.username || comment.owner._id} - </b>{comment.text}</Card.Text>
             )}
-            <Card.Text><small className="text-muted">{moment(picture.createdAt).fromNow()}</small></Card.Text>
           </Card.Footer>
           {this.props.user ? <Card.Footer className="card-footer-stick">
             <form id={picture._id} onSubmit={this.createComment}>
@@ -118,6 +111,7 @@ class Picture extends Component {
                 placeholder="Add a comment..."
                 value={comment}
                 onChange={this.handleChange}
+                className="form-border-s"
               />
               <Button type="submit" className="comment-button">Post</Button>
             </form>

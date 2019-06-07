@@ -61,7 +61,6 @@ class Pictures extends Component {
   }
 
   onSendToUser = async event => {
-    console.log(event.target.dataset.pictureowner)
     await axios({
       url: `${apiUrl}/users/${this.props.user._id}`,
       method: 'PATCH',
@@ -148,14 +147,14 @@ class Pictures extends Component {
               data-pictureowner={picture.owner.username || picture.owner.email} className="card-header-right">Follow</Button>) : ''}
         </Card.Header>
         <Link to={'/uploads/' + picture._id}><Card.Img variant="top" src={picture.url} /></Link>
-        <Card.Footer>
+        <Card.Footer className="comment-section">
           { this.props.user ? (picture.likes.includes(this.props.user.username)
             ? <Card.Img className="duck-like" src='https://i.imgur.com/1gqZnEN.png'
               onClick={this.smashThatLike} id={picture._id}/>
             : <Card.Img className="duck-like" src="https://i.imgur.com/nWCiT5Z.png"
               onClick={this.smashThatLike} id={picture._id}/>) : '' }
           <Card.Text>liked by <b>{picture.likes.length}</b> ducks</Card.Text>
-          <Card.Text className="picture-description"><b>@{picture.owner.username || 'unknown'} - </b>{picture.title || picture.description} #{picture.tag || 'notags'}</Card.Text>
+          <Card.Text className="picture-description">{picture.title || picture.description} #{picture.tag || 'notags'}</Card.Text>
           {picture.comments.map(comment =>
             <Card.Text key={comment._id} className="picture-description"><b>{comment.owner.username || comment.owner._id} - </b>{comment.text}</Card.Text>
           )}
@@ -168,6 +167,7 @@ class Pictures extends Component {
               placeholder="Add a comment..."
               value={comment}
               onChange={this.handleChange}
+              className="form-border"
             />
             <Button type="submit" className="comment-button">Post</Button>
           </form>

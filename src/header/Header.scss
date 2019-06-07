@@ -34,6 +34,7 @@ h1 {
   color: #c9c5c5;
   outline: 0;
 }
+
 .header-input:focus {
   color: rgb(68, 68, 68);
 }
@@ -72,10 +73,10 @@ input {
 }
 
 .nav-right {
+  align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
 }
 
 .main-header {
@@ -84,8 +85,8 @@ input {
   border-bottom: 1px solid $charcoal;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   height: 70px;
+  justify-content: space-between;
   padding: 0 20px;
   position: fixed;
   top: 0;
@@ -106,9 +107,18 @@ input {
   justify-content: flex-end;
 }
 
+@media (max-width: 950px) {
+  .searchbar-div {
+    display: none;
+  }
+  .card, ol {
+    width: 100vw;
+  }
+}
+
 @media (max-width: 600px) {
   .main-header {
-    flex-direction: column;
+    justify-content: center;
     font-size: .7em;
     height: auto;
     padding: 10px;
@@ -121,7 +131,7 @@ input {
 
 @media (max-width: 450px) {
   .main-header > nav {
-    flex-direction: column;
+    align-items: center;
     width: 100%;
 
     a,
@@ -131,5 +141,8 @@ input {
       text-align: center;
       width: 80%;
     }
+  }
+  .duck-header {
+    display: none;
   }
 }

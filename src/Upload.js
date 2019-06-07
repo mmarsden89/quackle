@@ -26,11 +26,9 @@ class Upload extends Component {
     this.setState({ upload: uploaded })
   }
   success = data => {
-    console.log(data)
   }
 
   failure = data => {
-    console.log(data)
   }
 
   onCreatePicture = async event => {
@@ -39,7 +37,6 @@ class Upload extends Component {
     const formData = new FormData(event.target)
     formData.description = metaData.description
     formData.tag = metaData.tag
-    console.log(this.state.user.token)
     await axios({
       url: `${apiUrl}/uploads`,
       method: 'POST',
@@ -49,7 +46,6 @@ class Upload extends Component {
       data: formData
     })
       .then(formData)
-      .catch(console.log('eeyo'))
   }
 
   render () {

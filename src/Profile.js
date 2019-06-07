@@ -42,7 +42,6 @@ class Profile extends Component {
     this.setState({ pictures: response.data.uploads })
     const userResponse = await axios(`${apiUrl}/users/${this.props.match.params.id}`)
     this.setState({ user: userResponse.data.user })
-    console.log(userResponse)
   }
 
   onCreateSuccess = data => {
@@ -63,11 +62,9 @@ class Profile extends Component {
       data: formData
     })
       .then(this.onCreateSuccess)
-      .catch(console.log('eeyo'))
   }
 
   onSendToUser = async url => {
-    console.log(this.props.user.token)
     const formData = new FormData(event.target)
     formData.description = this.profile
     formData.tag = this.profile
@@ -83,12 +80,9 @@ class Profile extends Component {
         }
       }
     })
-      .then(console.log('yo'))
-      .catch(console.log('eeyo'))
   }
 
   render () {
-    console.log(this.props)
     const user = this.state.user
     const picture = this.state.pictures.filter(function (pic) {
       return pic.owner._id === user._id
