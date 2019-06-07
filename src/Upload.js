@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import apiUrl from './apiConfig'
 import axios from 'axios'
+import { withRouter } from 'react-router-dom'
 
 class Upload extends Component {
   constructor (props) {
@@ -32,6 +33,7 @@ class Upload extends Component {
   }
 
   onCreatePicture = async event => {
+    const { history } = this.props
     event.preventDefault()
     const metaData = this.state.upload
     const formData = new FormData(event.target)
@@ -46,6 +48,7 @@ class Upload extends Component {
       data: formData
     })
       .then(formData)
+      .then(() => history.push('/'))
   }
 
   render () {
@@ -62,4 +65,4 @@ class Upload extends Component {
   }
 }
 
-export default Upload
+export default withRouter(Upload)
