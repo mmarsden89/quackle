@@ -127,6 +127,14 @@ img {
   max-height: 400px;
 }
 
+.black {
+  color: black;
+}
+
+.black:hover {
+  color: black;
+}
+
 .nohover {
   text-decoration: none !important;
 }
@@ -144,6 +152,16 @@ img {
 .comment-button:hover {
   background-color: white;
   color: $link;
+}
+
+.container-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-row {
+  display: flex;
+  flex-direction: row;
 }
 
 .duck-like {

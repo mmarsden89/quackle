@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 // import { Link, Redirect } from 'react-router-dom'
-import { withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 
@@ -90,7 +90,7 @@ class Picture extends Component {
           <img src={picture.url} className="individual-picture"/>
         </div>
         <Card key={picture._id} className="single-post">
-          <Card.Header className="card-header"><img className="avatar" src={picture.owner.profile}/><p className="card-picture-p">{picture.owner.username || 'unknown'}</p></Card.Header>
+          <Card.Header className="card-header"><Link to={'/profile/' + picture.owner._id}><img className="avatar" src={picture.owner.profile}/></Link><Link className="nohover" to={'/profile/' + picture.owner._id}><p className="card-picture-p">{picture.owner.username || 'unknown'}</p></Link></Card.Header>
           <Card.Text className="picture-description margin-left">{picture.title || picture.description} #{picture.tag || 'notags'}</Card.Text>
           <small className="text-muted">Last updated {moment(picture.updatedAt).fromNow()}</small>
           <Card.Footer className="single-comment-section">
@@ -101,7 +101,7 @@ class Picture extends Component {
                 onClick={this.smashThatLike} id={picture._id}/>) : '' }
             <Card.Text>liked by <b>{picture.likes.length}</b> ducks</Card.Text>
             {picture.comments.map(comment =>
-              <Card.Text key={comment._id} className="picture-description"><b>{comment.owner.username || comment.owner._id} - </b>{comment.text}</Card.Text>
+              <Card.Text key={comment._id} className="picture-description"><b><Link className="nohover black" to={'/profile/' + comment.owner._id}>{comment.owner.username || comment.owner._id}</Link> - </b>{comment.text}</Card.Text>
             )}
           </Card.Footer>
           {this.props.user ? <Card.Footer className="card-footer-stick">

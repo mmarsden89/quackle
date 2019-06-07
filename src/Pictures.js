@@ -156,7 +156,7 @@ class Pictures extends Component {
           <Card.Text>liked by <b>{picture.likes.length}</b> ducks</Card.Text>
           <Card.Text className="picture-description">{picture.title || picture.description} #{picture.tag || 'notags'}</Card.Text>
           {picture.comments.map(comment =>
-            <Card.Text key={comment._id} className="picture-description"><b>{comment.owner.username || comment.owner._id} - </b>{comment.text}</Card.Text>
+            <Card.Text key={comment._id} className="picture-description"><b><Link className="sidebar-p-span" to={'/profile/' + comment.owner._id}>{comment.owner.username || comment.owner._id}</Link> &nbsp;&nbsp;&nbsp;&nbsp; </b>{comment.text}</Card.Text>
           )}
           <Card.Text><small className="text-muted">{moment(picture.createdAt).fromNow()}</small></Card.Text>
         </Card.Footer>

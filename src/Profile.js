@@ -23,7 +23,9 @@ class Profile extends Component {
         owner: ''
       },
       show: false,
-      user: {}
+      user: {},
+      followers: '',
+      following: ''
     }
   }
 
@@ -42,6 +44,7 @@ class Profile extends Component {
     this.setState({ pictures: response.data.uploads })
     const userResponse = await axios(`${apiUrl}/users/${this.props.match.params.id}`)
     this.setState({ user: userResponse.data.user })
+    this.setState({ followers: this.state.user.followers.length, following: this.state.user.following.length })
   }
 
   onCreateSuccess = data => {
@@ -105,13 +108,17 @@ class Profile extends Component {
           </Modal.Body>
         </Modal>
         <div className="profile-header">
-          <label htmlFor='single'>
-          </label>
           <Image className="avatar" src={user.profile}
             onMouseOver={e => (e.currentTarget.src = 'https://unclogwarrior.s3.amazonaws.com/camera.jpg')}
             onMouseLeave={e => (e.currentTarget.src = user.profile)} onClick={this.handleShow}/>
-          <h5>{user.username || user._id}</h5>
-          <p>{picture.length} posts</p>
+          <div className="container-column">
+            <h5>{user.username || user._id}</h5>
+            <div className="container-row">
+              <p>{picture.length} posts</p>
+              <p>{this.state.followers !== 1 ? this.state.followers + ' followers' : this.state.followers + ' follower'}</p>
+              <p>{this.state.following !== 1 ? this.state.following + ' following' : this.state.following + ' following'}</p>
+            </div>
+          </div>
         </div>
         <div className="profile-images-container" >
           {picture}
