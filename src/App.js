@@ -14,6 +14,7 @@ import Picture from './Picture'
 import Profile from './Profile'
 import Settings from './Settings'
 import AutoDismissAlert from './AutoDismissAlert'
+import VideoUpload from './VideoUpload'
 
 export class App extends Component {
   constructor () {
@@ -69,6 +70,9 @@ export class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/upload' render={() => (
             <Upload alert={this.alert} match={this.match} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/video-upload' render={() => (
+            <VideoUpload alert={this.alert} match={this.match} user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword alert={this.alert} user={user} />
