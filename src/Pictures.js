@@ -16,7 +16,8 @@ class Pictures extends Component {
       comment: '',
       users: [],
       followed: false,
-      following: []
+      following: [],
+      profilePic: ''
     }
   }
 
@@ -30,6 +31,7 @@ class Pictures extends Component {
     if (this.props.user) {
       const following = await axios(`${apiUrl}/users/${this.props.user._id}`)
       this.setState({ following: following.data.user.following })
+      this.setState({ profilePic: following.data.user.profile })
     }
     this.setState({ comment: '' })
   }
@@ -121,8 +123,8 @@ class Pictures extends Component {
     const currentUser = (
       <div>
         <span>
-          {this.props.user ? <Link to={'/profile/' + this.props.user._id}><img src={this.props.user.profile} className="avatar-pictures"/></Link> : ''}
-          {this.props.user ? <Link className="sidebar-p-span" to={'/profile/' + this.props.user._id}><p className="sidebar-p-span">&nbsp;&nbsp;&nbsp;&nbsp;{ this.props.user.username}</p></Link> : ''}
+          {this.props.user ? <Link to={'/profile/' + this.props.user._id}><img src={this.state.profilePic} className="avatar-pictures"/></Link> : ''}
+          {this.props.user ? <Link className="sidebar-p-span" to={'/profile/' + this.props.user._id}><p className="sidebar-p-span">&nbsp;&nbsp;&nbsp;&nbsp;{ this.props.user.username }</p></Link> : ''}
         </span>
       </div>
     )

@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../apiConfig'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog, faCameraRetro, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faCog, faCameraRetro, faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
 
 import './Header.scss'
 
@@ -17,6 +17,10 @@ class Header extends Component {
       searchreturn: '',
       profile: ''
     }
+  }
+  async getUserProfile () {
+    const userProfile = await axios(`${apiUrl}/users/${this.props.user._id}`)
+    return userProfile.data.user.profile
   }
 
   async componentDidMount () {
@@ -62,7 +66,7 @@ class Header extends Component {
             ? <nav className="nav-right">
               <Link to="/upload"><FontAwesomeIcon className="icon" icon={faCameraRetro}/></Link>
               <Link to="/settings"><FontAwesomeIcon className="icon" icon={faCog}/></Link>
-              <Link to={'/profile/' + this.props.user._id}><img className="avatar" src={this.props.user.profile}/></Link>
+              <Link to={'/profile/' + this.props.user._id}><FontAwesomeIcon className="icon" icon={faUser}/></Link>
             </nav> : <nav className="nav-right">
               <Link to="/sign-up">Sign Up</Link>
               <Link to="/sign-in">Sign In</Link>

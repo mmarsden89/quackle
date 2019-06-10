@@ -53,7 +53,7 @@ export class App extends Component {
             <Pictures alert={this.alert} match={this.match} user={this.state.user} />
           )} />
           <Route exact path='/profile/:id' render={() => (
-            <Profile alert={this.alert} match={this.match} user={this.state.user} />
+            <Profile alert={this.alert} match={this.match} user={this.state.user} callComponent={this.callComponent} />
           )} />
           <Route path='/uploads/:id' render={() => (
             <Picture alert={this.alert} match={this.match} user={this.state.user} />
@@ -62,7 +62,7 @@ export class App extends Component {
             <SignUp alert={this.alert} setUser={this.setUser} />
           )} />
           <Route path='/sign-in' render={() => (
-            <SignIn alert={this.alert} setUser={this.setUser} />
+            <SignIn alert={this.alert} setUser={this.setUser} updatePhoto={this.updatePhoto} />
           )} />
           <AuthenticatedRoute user={user} path='/sign-out' render={() => (
             <SignOut alert={this.alert} clearUser={this.clearUser} user={user} />

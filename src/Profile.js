@@ -84,8 +84,6 @@ class Profile extends Component {
       }
     })
     this.componentDidMount()
-    this.props.user.profile = this.state.user.profile
-    this.getUserProfile()
   }
 
   render () {
