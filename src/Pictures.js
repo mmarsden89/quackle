@@ -4,6 +4,7 @@ import axios from 'axios'
 import { Link, withRouter } from 'react-router-dom'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
+import Modal from 'react-bootstrap/Modal'
 
 const moment = require('moment')
 
@@ -11,13 +12,18 @@ class Pictures extends Component {
   constructor (props) {
     super(props)
 
+    this.handleShow = this.handleShow.bind(this)
+    this.handleClose = this.handleClose.bind(this)
+
     this.state = {
       pictures: [],
       comment: '',
       users: [],
       followed: false,
       following: [],
-      profilePic: ''
+      profilePic: '',
+      show: false,
+      video: ''
     }
   }
 
@@ -61,6 +67,14 @@ class Pictures extends Component {
       }
     })
     this.componentDidMount()
+  }
+
+  handleClose (event) {
+    this.setState({ show: false })
+  }
+
+  handleShow (e) {
+    this.setState({ show: true, video: e.target.id })
   }
 
   onSendToUser = async event => {
@@ -131,7 +145,11 @@ class Pictures extends Component {
 
     const users = this.state.users.reverse().map(user => (
       <div key={user._id} className="sidebar-container">
-        <Link to={'/profile/' + user._id}><Card.Img src={user.profile} className="avatar-pictures"/></Link>
+        {this.state.pictures.filter(function (video) {
+          return video.description === 'Video'
+        }).map(video => (
+          (video.owner._id === user._id ? <Card.Img key={video._id} src={user.profile} id={video.url} onClick={this.handleShow} className="avatar-pictures red-ring"/> : <Card.Img key={video._id} src={user.profile} className="avatar-pictures"/>)
+        ))}
         <div>
           <Link to={'/profile/' + user._id}><p className="sidebar-small">{user.username}</p></Link>
           <p className="sidebar-super-small">{moment(user.updatedAt).fromNow()}</p>
@@ -139,7 +157,7 @@ class Pictures extends Component {
       </div>
     ))
     const pictures = this.state.pictures.filter(function (pic) {
-      return pic.description !== 'Profile'
+      return pic.description !== 'Profile' && pic.description !== 'Video'
     }).reverse().map(picture => (
       <Card key={picture._id} className="card margin-top">
         <Card.Header className="card-header">
@@ -182,6 +200,14 @@ class Pictures extends Component {
 
     return (
       <div>
+        <Modal show={this.state.show} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Update Profile Picture</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <video src={this.state.video} controls/>
+          </Modal.Body>
+        </Modal>
         <div className="sidebar-user">
           {currentUser}
         </div>
