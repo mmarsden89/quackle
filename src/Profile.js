@@ -83,13 +83,16 @@ class Profile extends Component {
         }
       }
     })
+    this.componentDidMount()
+    this.props.user.profile = this.state.user.profile
+    this.getUserProfile()
   }
 
   render () {
     const user = this.state.user
     const picture = this.state.pictures.filter(function (pic) {
       return pic.owner._id === user._id
-    }).map(picture => (
+    }).filter(picture => picture.description !== 'Profile').map(picture => (
       <Link key={picture._id} to={'/uploads/' + picture._id}><Image key={picture._id} className="profile-images" src={picture.url}/></Link>
     ))
 
@@ -112,7 +115,7 @@ class Profile extends Component {
             ? <Image className="avatar-profile hand-hover" src={user.profile}
               onMouseOver={e => (e.currentTarget.src = 'https://unclogwarrior.s3.amazonaws.com/camera.jpg')}
               onMouseLeave={e => (e.currentTarget.src = user.profile)} onClick={this.handleShow}/>
-            : '')
+            : <Image className="avatar-profile" src={user.profile}/>)
             : <Image className="avatar-profile" src={user.profile}/>}
           <div className="container-column">
             <h5>{user.username || user._id}</h5>

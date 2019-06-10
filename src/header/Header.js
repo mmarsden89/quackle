@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../apiConfig'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -18,6 +18,7 @@ class Header extends Component {
       profile: ''
     }
   }
+
   async componentDidMount () {
     const response = await axios(`${apiUrl}/uploads`)
     this.setState({ pictures: response.data.uploads })
@@ -72,4 +73,4 @@ class Header extends Component {
   }
 }
 
-export default Header
+export default withRouter(Header)

@@ -15,7 +15,7 @@ import Profile from './Profile'
 import Settings from './Settings'
 import AutoDismissAlert from './AutoDismissAlert'
 
-class App extends Component {
+export class App extends Component {
   constructor () {
     super()
 
