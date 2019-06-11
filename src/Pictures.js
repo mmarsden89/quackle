@@ -146,9 +146,9 @@ class Pictures extends Component {
     const users = this.state.users.reverse().map(user => (
       <div key={user._id} className="sidebar-container">
         {this.state.pictures.filter(function (video) {
-          return video.description === 'Video'
+          return (video.description === 'Video' && moment(video.createdAt).add(1, 'd') > moment()) || video.description === 'VideoPass'
         }).map(video => (
-          (video.owner._id === user._id ? <Card.Img key={video._id} src={user.profile} id={video.url} onClick={this.handleShow} className="avatar-pictures red-ring"/> : <Card.Img key={video._id} src={user.profile} className="avatar-pictures"/>)
+          video.owner._id === user._id ? <Card.Img key={video._id} src={user.profile} id={video.url} onClick={this.handleShow} className="avatar-pictures red-ring absolute"/> : <Card.Img key={video._id} src={user.profile} className="avatar-pictures absolute"/>
         ))}
         <div>
           <Link to={'/profile/' + user._id}><p className="sidebar-small">{user.username}</p></Link>
@@ -157,14 +157,15 @@ class Pictures extends Component {
       </div>
     ))
     const pictures = this.state.pictures.filter(function (pic) {
-      return pic.description !== 'Profile' && pic.description !== 'Video'
+      return pic.description !== 'Profile' && pic.description !== 'Video' && pic.description !== 'VideoPass'
     }).reverse().map(picture => (
       <Card key={picture._id} className="card margin-top">
         <Card.Header className="card-header">
           <Link to={'/profile/' + picture.owner._id}><Card.Img src={picture.owner.profile} className="avatar-pictures"/></Link>
           <Link to={'/profile/' + picture.owner._id} className="nohover"><p className="card-picture-p">{picture.owner.username}</p></Link>
           {this.props.user ? (picture.owner._id === this.props.user._id ? <Button onClick={this.deletePost} id={picture._id} className="right btn-danger">Delete</Button>
-            : (this.state.following.includes(picture.owner.username) ? <Button className="right btn-secondary" onClick={this.handleFollow} data-id={this.props.user.username} id={picture.owner._id} data-pictureowner={picture.owner.username}>unfollow</Button>
+            : (this.state.following.includes(picture.owner.username)
+              ? <Button className="right btn-secondary" onClick={this.handleFollow} data-id={this.props.user.username} id={picture.owner._id} data-pictureowner={picture.owner.username}>unfollow</Button>
               : <Button onClick={this.handleFollow} data-id={this.props.user.username} id={picture.owner._id}
                 data-pictureowner={picture.owner.username} className="right btn-primary">Follow</Button>)) : ''}
         </Card.Header>
@@ -200,12 +201,9 @@ class Pictures extends Component {
 
     return (
       <div>
-        <Modal show={this.state.show} onHide={this.handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Update Profile Picture</Modal.Title>
-          </Modal.Header>
+        <Modal className="video-body" show={this.state.show} onHide={this.handleClose}>
           <Modal.Body>
-            <video src={this.state.video} controls/>
+            <video src={this.state.video} autoPlay onEnded={this.handleClose}/>
           </Modal.Body>
         </Modal>
         <div className="sidebar-user">
