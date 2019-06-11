@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../apiConfig'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog, faCameraRetro, faSearch, faUser, faVideo } from '@fortawesome/free-solid-svg-icons'
+import { faCog, faCameraRetro, faSearch, faUser, faVideo, faCommentDots } from '@fortawesome/free-solid-svg-icons'
 
 import './Header.scss'
 
@@ -64,6 +64,7 @@ class Header extends Component {
         <div className="header-right">
           { this.props.user
             ? <nav className="nav-right">
+              <Link to="/message"><FontAwesomeIcon className="icon" icon={faCommentDots}/></Link>
               <Link to="/video-upload"><FontAwesomeIcon className="icon" icon={faVideo}/></Link>
               <Link to="/upload"><FontAwesomeIcon className="icon" icon={faCameraRetro}/></Link>
               <Link to="/settings"><FontAwesomeIcon className="icon" icon={faCog}/></Link>

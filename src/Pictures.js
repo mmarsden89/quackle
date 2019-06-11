@@ -148,16 +148,16 @@ class Pictures extends Component {
         {this.state.pictures.filter(function (video) {
           return (video.description === 'Video' && moment(video.createdAt).add(1, 'd') > moment()) || video.description === 'VideoPass'
         }).map(video => (
-          video.owner._id === user._id ? <Card.Img key={video._id} src={user.profile} id={video.url} onClick={this.handleShow} className="avatar-pictures red-ring absolute"/> : <Card.Img key={video._id} src={user.profile} className="avatar-pictures absolute"/>
+          video.owner._id === user._id && video.owner.username !== 'Admin' ? <Card.Img key={video._id} src={user.profile} id={video.url} onClick={this.handleShow} className="avatar-pictures red-ring absolute"/> : (user.username !== 'Admin' ? <Card.Img key={video._id} src={user.profile} className="avatar-pictures absolute"/> : <Card.Img key={video._id} src={user.profile} className="avatar-pictures absolute no-display"/>)
         ))}
         <div>
-          <Link to={'/profile/' + user._id}><p className="sidebar-small">{user.username}</p></Link>
-          <p className="sidebar-super-small">{moment(user.updatedAt).fromNow()}</p>
+          {user.username !== 'Admin' ? <Link to={'/profile/' + user._id}><p className="sidebar-small">{user.username}</p></Link> : ''}
+          {user.username !== 'Admin' ? <p className="sidebar-super-small">{moment(user.updatedAt).fromNow()}</p> : '' }
         </div>
       </div>
     ))
     const pictures = this.state.pictures.filter(function (pic) {
-      return pic.description !== 'Profile' && pic.description !== 'Video' && pic.description !== 'VideoPass'
+      return pic.description !== 'Profile' && pic.description !== 'VideoPass' && pic.description !== 'Video'
     }).reverse().map(picture => (
       <Card key={picture._id} className="card margin-top">
         <Card.Header className="card-header">
