@@ -127,10 +127,8 @@ class Message extends Component {
     ))
     const currentMessage = (
       <div>
-        <p>{this.state.currentMessage ? this.state.currentMessage.user1.username : ''}</p>
-        <p>{this.state.currentMessage ? this.state.currentMessage.user2.username : ''}</p>
         {this.state.currentMessage ? this.state.currentMessage.lastMessage.map(message => (
-          <p key={message.id}>{message.body}</p>
+          <p key={message.id}>{message.owner.username}: {message.body}</p>
         )) : ''}
         {this.state.currentMessage
           ? <form id={this.state.currentMessage._id} onSubmit={this.createMessage}>
