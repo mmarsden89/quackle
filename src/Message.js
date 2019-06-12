@@ -84,19 +84,22 @@ class Message extends Component {
     this.setState({ currentMessage: chatResponse.data.chat })
   }
 
-  getChat = function (id) {
-    return axios({
+  getChat = async id => {
+    const chatResponse = await axios({
       url: apiUrl + '/chats/' + id,
       method: 'GET',
       headers: {
         'Authorization': `Token token=${this.props.user.token}`
       }
     })
+    console.log(chatResponse)
+    this.setState({ currentMessage: chatResponse.data.chat })
   }
 
-  createMessage = event => {
+  createMessage = async event => {
     event.preventDefault()
-    return axios({
+    event.persist()
+    await axios({
       url: `${apiUrl}/messages`,
       method: 'POST',
       headers: {
@@ -109,6 +112,7 @@ class Message extends Component {
         }
       }
     })
+    return this.getChat(event.target.id)
   }
 
   render () {
