@@ -116,15 +116,20 @@ class Message extends Component {
 
   render () {
     const { body } = this.state
-    const userChats = this.state.userchats.map(chat => (
+    const userChats = this.state.userchats.filter(chat => {
+      console.log('...', chat)
+      return chat.user1._id !== this.props.user._id || chat.user2._id !== this.props.user._id
+    }).map(chat => (
       <div key={chat._id}>
         <button id={chat._id} onClick={this.handleClick}>{chat.user1.username !== this.props.user.username ? chat.user1.username
           : chat.user2.username}</button>
       </div>
     ))
-    const userHtml = this.state.users.map(users => (
-      <div key={users._id}>
-        <button id={users._id} onClick={this.createChat}>{users.username}</button>
+    const userHtml = this.state.users.filter(user => {
+      return user._id !== this.props.user._id
+    }).map(user => (
+      <div key={user._id}>
+        <button id={user._id} onClick={this.createChat}>{user.username}</button>
       </div>
     ))
     const currentMessage = (
@@ -158,7 +163,9 @@ class Message extends Component {
         <div className="margin-top">
           {userChats}
         </div>
-        {userHtml}
+        <div className="margin-top">
+          {userHtml}
+        </div>
         {this.state.currentMessage ? currentMessage : ''}
       </div>
     )
