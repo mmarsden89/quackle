@@ -23,7 +23,8 @@ class Message extends Component {
         user2: {
           username: ''
         },
-        lastMessage: []
+        lastMessage: [],
+        messages: []
       },
       body: ''
     }
@@ -79,6 +80,7 @@ class Message extends Component {
         'Authorization': `Token token=${this.props.user.token}`
       }
     })
+    console.log('$$$', chatResponse)
     this.setState({ currentMessage: chatResponse.data.chat })
   }
 
@@ -134,7 +136,7 @@ class Message extends Component {
     ))
     const currentMessage = (
       <div>
-        {this.state.currentMessage ? this.state.currentMessage.lastMessage.map(message => (
+        {this.state.currentMessage ? this.state.currentMessage.messages.map(message => (
           <div key={message.id}>
             {message.owner._id === this.props.user._id ? <span className="message-right">
               <p className="yellow">{message.body}</p>
@@ -144,7 +146,7 @@ class Message extends Component {
               <p className="grey">{message.body}</p>
             </span>}
           </div>
-        )) : ''}
+        )) : 'hm'}
         {this.state.currentMessage
           ? <form id={this.state.currentMessage._id} onSubmit={this.createMessage}>
             <input
