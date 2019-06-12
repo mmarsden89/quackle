@@ -131,8 +131,13 @@ class Message extends Component {
       <div>
         {this.state.currentMessage ? this.state.currentMessage.lastMessage.map(message => (
           <div key={message.id}>
-            <img src={message.owner.profile} className="avatar-pictures"/>
-            <p>{message.body}</p>
+            {message.owner._id === this.props.user._id ? <span className="message-right">
+              <p className="yellow">{message.body}</p>
+              <img src={message.owner.profile} className="avatar-pictures"/>
+            </span> : <span className="message-left">
+              <img src={message.owner.profile} className="avatar-pictures"/>
+              <p className="grey">{message.body}</p>
+            </span>}
           </div>
         )) : ''}
         {this.state.currentMessage

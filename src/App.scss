@@ -239,6 +239,18 @@ img {
   margin-top: 100px;
 }
 
+.message-left {
+  align-items: flex-start;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.message-right {
+  align-items: flex-start;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .modal-container {
   align-items: center;
   display: flex;
@@ -371,10 +383,26 @@ img {
 }
 
 .upload-input {
-  margin: 10px 0;
-  border-radius: 3px;
-  outline: 0;
   border: solid 1px #dbdbdb;
+  border-radius: 3px;
+  margin: 10px 0;
+  outline: 0;
+}
+
+// messaging colors
+
+.grey {
+  background-color: rgb(230, 225, 225);
+  border-radius: 15px;
+  margin-right: 10px;
+  padding: 5px 10px;
+}
+
+.yellow {
+  background-color: yellow;
+  border-radius: 15px;
+  margin-right: 10px;
+  padding: 5px 10px;
 }
 
 span > * {
