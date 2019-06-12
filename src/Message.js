@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 // import { Link, Redirect } from 'react-router-dom'
 import { withRouter } from 'react-router-dom'
+import { animateScroll } from 'react-scroll'
 // import Image from 'react-bootstrap/Image'
 import Button from 'react-bootstrap/Button'
 
@@ -28,6 +29,12 @@ class Message extends Component {
       },
       body: ''
     }
+  }
+
+  scrollToBottom () {
+    animateScroll.scrollToBottom({
+      containerId: 'chat-window'
+    })
   }
 
   async componentDidMount () {
@@ -93,7 +100,7 @@ class Message extends Component {
       }
     })
     console.log(chatResponse)
-    this.setState({ currentMessage: chatResponse.data.chat, lastMessage: chatResponse.data.messages })
+    this.setState({ currentMessage: chatResponse.data.chat, lastMessage: chatResponse.data.messages }, this.scrollToBottom)
   }
 
   createMessage = async event => {
@@ -136,17 +143,19 @@ class Message extends Component {
     ))
     const currentMessage = (
       <div>
-        {this.state.currentMessage ? this.state.currentMessage.messages.map(message => (
-          <div key={message.id}>
-            {message.owner._id === this.props.user._id ? <span className="message-right">
-              <p className="yellow">{message.body}</p>
-              <img src={message.owner.profile} className="avatar-pictures"/>
-            </span> : <span className="message-left">
-              <img src={message.owner.profile} className="avatar-pictures"/>
-              <p className="grey">{message.body}</p>
-            </span>}
-          </div>
-        )) : 'hm'}
+        <div className="chat-window" id="chat-window" onLoad={this.scrollToBottom}>
+          {this.state.currentMessage ? this.state.currentMessage.messages.map(message => (
+            <div key={message.id}>
+              {message.owner._id === this.props.user._id ? <span className="message-right">
+                <p className="yellow">{message.body}</p>
+                <img src={message.owner.profile} className="avatar-pictures"/>
+              </span> : <span className="message-left">
+                <img src={message.owner.profile} className="avatar-pictures"/>
+                <p className="grey">{message.body}</p>
+              </span>}
+            </div>
+          )) : ''}
+        </div>
         {this.state.currentMessage
           ? <form id={this.state.currentMessage._id} onSubmit={this.createMessage}>
             <input
@@ -168,7 +177,9 @@ class Message extends Component {
         <div className="margin-top">
           {userHtml}
         </div>
-        {this.state.currentMessage ? currentMessage : ''}
+        <div>
+          {this.state.currentMessage ? currentMessage : ''}
+        </div>
       </div>
     )
   }
