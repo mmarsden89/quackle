@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 // import { Link, Redirect } from 'react-router-dom'
 import { withRouter } from 'react-router-dom'
 // import Image from 'react-bootstrap/Image'
-// import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button'
 
 import apiUrl from './apiConfig'
 import axios from 'axios'
@@ -12,73 +12,139 @@ class Message extends Component {
     super(props)
 
     this.state = {
-      pictures: [],
-      show: false,
       users: [],
-      messages: [],
       user: {},
-      currentMessage: null
+      targetUser: {},
+      userchats: [],
+      currentMessage: {
+        user1: {
+          username: ''
+        },
+        user2: {
+          username: ''
+        },
+        lastMessage: {
+          body: ''
+        }
+      },
+      body: ''
     }
   }
 
   async componentDidMount () {
+    console.log(this.props)
     const userResponse = await axios(`${apiUrl}/users`)
     this.setState({ users: userResponse.data.users })
-    const messageResponse = await axios(`${apiUrl}/messages`)
-    this.setState({ messages: messageResponse.data.messages })
-    this.setState({ user: this.props.user })
+    const userChats = await axios({
+      url: apiUrl + '/chats',
+      method: 'GET',
+      headers: { 'Authorization': `Token token=${this.props.user.token}` }
+    })
+    this.setState({ userchats: userChats.data.chats })
   }
 
-  createNewChat = async event => {
-    const { user } = this.props
-    const id = event.target.id
-    console.log(id)
-    if (this.state.messages.some(function (message) {
-      return (message.user._id !== user._id && message.user2._id !== id) ||
-      (message.user._id !== id && message.user2._id !== user._id)
-    })) {
-      this.setState({ currentMessage: this.state.messages.find(function (message) {
-        return (message.user._id === user._id && message.user2._id === id) ||
-        (message.user._id === id && message.user2._id === user._id)
-      }) })
-      console.log('yo', this.state.currentMessage)
-    } else {
-      await axios({
-        url: apiUrl + '/messages',
+  createChat = async (event, user) => {
+    const userResponse = await axios(`${apiUrl}/users/${event.target.id}`)
+    console.log(userResponse.data.user)
+    this.setState({ targetUser: userResponse.data.user })
+    console.log(this.state.targetUser)
+    if (this.state.targetUser) {
+      return axios({
+        url: `${apiUrl}/chats`,
         method: 'POST',
-        headers: { Authorization: 'Token token=' + this.props.user.token },
+        headers: { 'Authorization': 'Token token=' + this.props.user.token },
         data: {
-          message: {
-            'user': `${user._id}`,
-            'user2': `${id}`
+          chat: {
+            user1: this.props.user,
+            user2: this.state.targetUser
           }
         }
       })
     }
-    this.componentDidMount()
+  }
+
+  handleChange = event => {
+  // handle change
+    const updatedField = {
+      [event.target.name]: event.target.value
+    }
+    const body = Object.assign(this.state.body, updatedField)
+    this.setState({ body: body.body })
+  }
+
+  handleClick = async event => {
+    console.log(event.target.id)
+    const chatResponse = await axios({
+      url: apiUrl + '/chats/' + event.target.id,
+      method: 'GET',
+      headers: {
+        'Authorization': `Token token=${this.props.user.token}`
+      }
+    })
+    this.setState({ currentMessage: chatResponse.data.chat })
+  }
+
+  getChat = function (id) {
+    return axios({
+      url: apiUrl + '/chats/' + id,
+      method: 'GET',
+      headers: {
+        'Authorization': `Token token=${this.props.user.token}`
+      }
+    })
+  }
+
+  createMessage = event => {
+    event.preventDefault()
+    return axios({
+      url: `${apiUrl}/messages`,
+      method: 'POST',
+      headers: {
+        'Authorization': `Token token=${this.props.user.token}`
+      },
+      data: {
+        message: {
+          body: this.state.body,
+          chat: event.target.id
+        }
+      }
+    })
   }
 
   render () {
-    const userHtml = this.state.users.map(targetUser => (
-      <div key={targetUser._id}>
-        <p id={targetUser._id} onClick={this.createNewChat}>{targetUser.username}</p>
+    const userChats = this.state.userchats.map(chat => (
+      <div key={chat._id} className="margin-top">
+        <button id={chat._id} onClick={this.handleClick}>{chat.user1.username !== this.props.user.username ? chat.user1.username
+          : chat.user2.username}</button>
       </div>
     ))
-    const messageHtml = (
+    const userHtml = this.state.users.map(users => (
+      <div key={users._id} className="margin-top">
+        <button id={users._id} onClick={this.createChat}>{users.username}</button>
+      </div>
+    ))
+    const currentMessage = (
       <div>
-        <p>{this.state.currentMessage ? this.state.currentMessage.user.username : ''}</p>
+        <p>{this.state.currentMessage ? this.state.currentMessage.user1.username : ''}</p>
         <p>{this.state.currentMessage ? this.state.currentMessage.user2.username : ''}</p>
-        <p>hello</p>
+        <p>{this.state.currentMessage ? this.state.currentMessage.lastMessage.body : ''}</p>
+        {this.state.currentMessage
+          ? <form id={this.state.currentMessage._id} onSubmit={this.createMessage}>
+            <input
+              name="body"
+              placeholder="Add a message..."
+              onChange={this.handleChange}
+              className="form-border"
+            />
+            <Button type="submit" className="comment-button">Post</Button>
+          </form> : ''}
       </div>
     )
     return (
       <div>
-        <div className="margin-top">
-          {userHtml}
-        </div>
-        <div className="margin-top">
-          {messageHtml}
-        </div>
+        {userChats}
+        {userHtml}
+        {this.state.currentMessage ? currentMessage : ''}
       </div>
     )
   }
