@@ -91,7 +91,7 @@ class Message extends Component {
       }
     })
     console.log(chatResponse)
-    this.setState({ currentMessage: chatResponse.data.chat })
+    this.setState({ currentMessage: chatResponse.data.chat, lastMessage: chatResponse.data.messages })
   }
 
   createMessage = async event => {
@@ -110,30 +110,36 @@ class Message extends Component {
         }
       }
     })
+    this.setState({ body: '' })
     return this.getChat(event.target.id)
   }
 
   render () {
+    const { body } = this.state
     const userChats = this.state.userchats.map(chat => (
-      <div key={chat._id} className="margin-top">
+      <div key={chat._id}>
         <button id={chat._id} onClick={this.handleClick}>{chat.user1.username !== this.props.user.username ? chat.user1.username
           : chat.user2.username}</button>
       </div>
     ))
     const userHtml = this.state.users.map(users => (
-      <div key={users._id} className="margin-top">
+      <div key={users._id}>
         <button id={users._id} onClick={this.createChat}>{users.username}</button>
       </div>
     ))
     const currentMessage = (
       <div>
         {this.state.currentMessage ? this.state.currentMessage.lastMessage.map(message => (
-          <p key={message.id}>{message.owner.username}: {message.body}</p>
+          <div key={message.id}>
+            <img src={message.owner.profile} className="avatar-pictures"/>
+            <p>{message.body}</p>
+          </div>
         )) : ''}
         {this.state.currentMessage
           ? <form id={this.state.currentMessage._id} onSubmit={this.createMessage}>
             <input
               name="body"
+              value={body}
               placeholder="Add a message..."
               onChange={this.handleChange}
               className="form-border"
@@ -144,7 +150,9 @@ class Message extends Component {
     )
     return (
       <div>
-        {userChats}
+        <div className="margin-top">
+          {userChats}
+        </div>
         {userHtml}
         {this.state.currentMessage ? currentMessage : ''}
       </div>
