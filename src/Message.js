@@ -127,7 +127,7 @@ class Message extends Component {
     const { body } = this.state
     const userChats = this.state.userchats.filter(chat => {
       console.log('...', chat)
-      return chat.user1._id !== this.props.user._id || chat.user2._id !== this.props.user._id
+      return chat.user1._id === this.props.user._id || chat.user2._id === this.props.user._id
     }).map(chat => (
       <div key={chat._id}>
         <button id={chat._id} onClick={this.handleClick}>{chat.user1.username !== this.props.user.username ? chat.user1.username
@@ -157,7 +157,7 @@ class Message extends Component {
           )) : ''}
         </div>
         {this.state.currentMessage
-          ? <form id={this.state.currentMessage._id} onSubmit={this.createMessage}>
+          ? <form id={this.state.currentMessage._id} onSubmit={this.createMessage} className="chat-input">
             <input
               name="body"
               value={body}
