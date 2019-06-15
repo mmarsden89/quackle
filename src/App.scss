@@ -47,8 +47,8 @@ html,
 }
 
 .avatar-profile {
-  width: 100px;
   border-radius: 50%;
+  width: 100px;
 }
 
 .auth-form {
@@ -154,7 +154,7 @@ img {
   position: absolute;
   right: 300px;
   top: 500px;
-  width: 600px;
+  width: 100%;
 }
 
 .right {
@@ -188,6 +188,10 @@ img {
 
 .card-text {
   margin-bottom: 5px;
+}
+
+.chat-mobile-container {
+  display: flex;
 }
 
 .comment-button {
@@ -284,7 +288,7 @@ img {
   margin-left: 5px;
 }
 
-.margin-top {
+.margin-top, .margin-top-msg {
   margin-top: 100px;
 }
 
@@ -482,6 +486,8 @@ img {
 .user-list {
   background-color: $white;
   border: 1px solid $border;
+  display: flex;
+  flex-direction: column;
   height: 300px;
   overflow-y: scroll;
   width: 340px;
@@ -517,6 +523,49 @@ span > * {
   .form-border-s {
     width: 225px;
   }
+
+  .chat-window {
+    border-top: 0;
+    height: 300px;
+    margin-top: 50px;
+    position: relative;
+    right: initial;
+    top: initial;
+  }
+
+  .chat-input, .box {
+    margin-left: initial;
+    position: relative;
+    right: initial;
+    top: initial;
+  }
+
+  .user-list {
+    flex-direction: row;
+    height: 50px;
+    position: relative;
+    top: 100px;
+    width: 600px;
+  }
+
+  .not-added-list {
+    display: none;
+  }
+
+  .margin-top-msg {
+    margin: 50px;
+  }
+
+  .mob {
+    display: none;
+  }
+
+  .chat-mobile-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 991px) {
@@ -526,6 +575,7 @@ span > * {
   .single-post {
     margin-top: 10px;
   }
+
 }
 
 @media (max-width: 950px) {
@@ -563,6 +613,30 @@ span > * {
 @media (max-width: 500px) {
   .form-border, .form-border-s {
     width: 325px;
+  }
+
+  .icon {
+    font-size: 20px;
+  }
+
+  .box {
+    width: 100%;
+  }
+
+  .chat-mobile-container {
+    width: 90vw;
+  }
+
+  .chat-window {
+    width: 90vw;
+  }
+
+  .chat-input {
+    width: 100%;
+  }
+
+  .user-list {
+    width: 100%;
   }
 }
 

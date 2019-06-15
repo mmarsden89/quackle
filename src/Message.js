@@ -142,10 +142,10 @@ class Message extends Component {
           : chat.user2.profile} className="avatar-pictures hand-hover" id={chat._id}
         onClick={this.handleClick}/>
         <p onClick={this.handleClick} id={chat._id}
-          className="hand-hover chat-sidebar">{chat.user1.username !== this.props.user.username
+          className="hand-hover mob chat-sidebar">{chat.user1.username !== this.props.user.username
             ? chat.user1.username
             : chat.user2.username}</p>
-        <p className="chat-super-small">{chat.lastMessage ? chat.lastMessage.body.substring(0, 20) : ''}</p></span>
+        <p className="chat-super-small mob">{chat.lastMessage ? chat.lastMessage.body.substring(0, 20) : ''}</p></span>
       </div>
     ))
     const userHtml = this.state.users.filter(user => {
@@ -154,8 +154,8 @@ class Message extends Component {
       <div key={user._id} className="margin-top-5 margin-left-5">
         <span>
           <img src={user.profile} id={user._id} onClick={this.createChat} className="avatar-pictures hand-hover"/>
-          <p id={user._id} onClick={this.createChat} className="hand-hover chat-sidebar">{user.username}</p>
-          <FontAwesomeIcon id={user._id} className="icon-sm hand-hover" icon={faPlusCircle} onClick={this.createChat}/>
+          <p id={user._id} onClick={this.createChat} className="hand-hover mob chat-sidebar">{user.username}</p>
+          <FontAwesomeIcon id={user._id} className="icon-sm hand-hover mob" icon={faPlusCircle} onClick={this.createChat}/>
         </span>
       </div>
     ))
@@ -189,11 +189,11 @@ class Message extends Component {
       </div>
     )
     return (
-      <div>
-        <div className="margin-top user-list">
+      <div className="chat-mobile-container">
+        <div className="margin-top-msg user-list">
           {userChats}
         </div>
-        <div className="margin-top not-added-list">
+        <div className="margin-top-msg not-added-list">
           {userHtml}
         </div>
         <div>
