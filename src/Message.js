@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-// import { Link, Redirect } from 'react-router-dom'
 import { withRouter } from 'react-router-dom'
 import { animateScroll } from 'react-scroll'
-// import Image from 'react-bootstrap/Image'
 import Button from 'react-bootstrap/Button'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 
 import apiUrl from './apiConfig'
 import axios from 'axios'
@@ -24,10 +24,11 @@ class Message extends Component {
         user2: {
           username: ''
         },
-        lastMessage: [],
         messages: []
       },
-      body: ''
+      body: '',
+      userMessages: [],
+      userMessages2: []
     }
   }
 
@@ -38,24 +39,17 @@ class Message extends Component {
   }
 
   async componentDidMount () {
-    console.log(this.props)
     const userResponse = await axios(`${apiUrl}/users`)
     this.setState({ users: userResponse.data.users })
-    const userChats = await axios({
-      url: apiUrl + '/chats',
-      method: 'GET',
-      headers: { 'Authorization': `Token token=${this.props.user.token}` }
-    })
+    const userChats = await axios(`${apiUrl}/chats`)
     this.setState({ userchats: userChats.data.chats })
   }
 
   createChat = async (event, user) => {
     const userResponse = await axios(`${apiUrl}/users/${event.target.id}`)
-    console.log(userResponse.data.user)
     this.setState({ targetUser: userResponse.data.user })
-    console.log(this.state.targetUser)
     if (this.state.targetUser) {
-      return axios({
+      await axios({
         url: `${apiUrl}/chats`,
         method: 'POST',
         headers: { 'Authorization': 'Token token=' + this.props.user.token },
@@ -67,6 +61,9 @@ class Message extends Component {
         }
       })
     }
+    this.setState({ state: this.state })
+    this.setState({ userMessages: this.state.userMessages.concat(this.state.targetUser) })
+    this.componentDidMount()
   }
 
   handleChange = event => {
@@ -87,7 +84,6 @@ class Message extends Component {
         'Authorization': `Token token=${this.props.user.token}`
       }
     })
-    console.log('$$$', chatResponse)
     this.setState({ currentMessage: chatResponse.data.chat })
   }
 
@@ -99,8 +95,7 @@ class Message extends Component {
         'Authorization': `Token token=${this.props.user.token}`
       }
     })
-    console.log(chatResponse)
-    this.setState({ currentMessage: chatResponse.data.chat, lastMessage: chatResponse.data.messages }, this.scrollToBottom)
+    this.setState({ currentMessage: chatResponse.data.chat }, this.scrollToBottom)
   }
 
   createMessage = async event => {
@@ -124,21 +119,35 @@ class Message extends Component {
   }
 
   render () {
-    const { body } = this.state
+    const { body, userMessages } = this.state
     const userChats = this.state.userchats.filter(chat => {
-      console.log('...', chat)
+      if (chat.user1._id === this.props.user._id || chat.user2._id === this.props.user._id) {
+        userMessages.push(chat.user1.username)
+        userMessages.push(chat.user2.username)
+      }
       return chat.user1._id === this.props.user._id || chat.user2._id === this.props.user._id
     }).map(chat => (
-      <div key={chat._id}>
-        <button id={chat._id} onClick={this.handleClick}>{chat.user1.username !== this.props.user.username ? chat.user1.username
-          : chat.user2.username}</button>
+      <div key={chat._id} className="margin-top-5 margin-left-5">
+        <span id={chat._id}><img src={chat.user1.username !== this.props.user.username
+          ? chat.user1.profile
+          : chat.user2.profile} className="avatar-pictures hand-hover" id={chat._id}
+        onClick={this.handleClick}/>
+        <p onClick={this.handleClick} id={chat._id}
+          className="hand-hover chat-sidebar">{chat.user1.username !== this.props.user.username
+            ? chat.user1.username
+            : chat.user2.username}</p>
+        <p className="chat-super-small">{chat.lastMessage ? chat.lastMessage.body.substring(0, 20) : ''}</p></span>
       </div>
     ))
     const userHtml = this.state.users.filter(user => {
-      return user._id !== this.props.user._id
+      return user._id !== this.props.user._id && !userMessages.includes(user.username)
     }).map(user => (
       <div key={user._id}>
-        <button id={user._id} onClick={this.createChat}>{user.username}</button>
+        <span>
+          <img src={user.profile} id={user._id} onClick={this.createChat} className="avatar-pictures hand-hover"/>
+          <p onClick={this.createChat} className="hand-hover">{user.username}</p>
+          <FontAwesomeIcon className="icon-sm hand-hover" icon={faPlusCircle} onClick={this.createChat}/>
+        </span>
       </div>
     ))
     const currentMessage = (
@@ -171,10 +180,10 @@ class Message extends Component {
     )
     return (
       <div>
-        <div className="margin-top">
+        <div className="margin-top user-list">
           {userChats}
         </div>
-        <div className="margin-top">
+        <div className="margin-top not-added-list">
           {userHtml}
         </div>
         <div>

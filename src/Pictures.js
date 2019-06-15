@@ -69,11 +69,11 @@ class Pictures extends Component {
     this.componentDidMount()
   }
 
-  handleClose (event) {
+  handleClose = event => {
     this.setState({ show: false })
   }
 
-  handleShow (e) {
+  handleShow = e => {
     this.setState({ show: true, video: e.target.id })
   }
 
