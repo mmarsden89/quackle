@@ -28,7 +28,15 @@ class Message extends Component {
       },
       body: '',
       userMessages: [],
-      userMessages2: []
+      userMessages2: [],
+      messageToggled: false
+    }
+  }
+
+  messageToggle = () => {
+    const { messageToggled } = this.state
+    if (!messageToggled) {
+      this.setState({ messageToggled: true })
     }
   }
 
@@ -77,6 +85,7 @@ class Message extends Component {
 
   handleClick = async event => {
     console.log(event.target.id)
+    this.messageToggle()
     const chatResponse = await axios({
       url: apiUrl + '/chats/' + event.target.id,
       method: 'GET',
@@ -153,19 +162,20 @@ class Message extends Component {
     const currentMessage = (
       <div>
         <div className="chat-window" id="chat-window" onLoad={this.scrollToBottom}>
-          {this.state.currentMessage ? this.state.currentMessage.messages.map(message => (
-            <div key={message.id}>
-              {message.owner._id === this.props.user._id ? <span className="message-right">
-                <p className="yellow">{message.body}</p>
-                <img src={message.owner.profile} className="avatar-pictures"/>
-              </span> : <span className="message-left">
-                <img src={message.owner.profile} className="avatar-pictures"/>
-                <p className="grey">{message.body}</p>
-              </span>}
-            </div>
-          )) : ''}
+          {!this.state.messageToggled ? '' : (
+            this.state.currentMessage ? this.state.currentMessage.messages.map(message => (
+              <div key={message.id}>
+                {message.owner._id === this.props.user._id ? <span className="message-right">
+                  <p className="yellow">{message.body}</p>
+                  <img src={message.owner.profile} className="avatar-pictures"/>
+                </span> : <span className="message-left">
+                  <img src={message.owner.profile} className="avatar-pictures"/>
+                  <p className="grey">{message.body}</p>
+                </span>}
+              </div>
+            )) : '')}
         </div>
-        {this.state.currentMessage
+        {this.state.messageToggled
           ? <form id={this.state.currentMessage._id} onSubmit={this.createMessage} className="chat-input">
             <input
               name="body"
@@ -175,7 +185,7 @@ class Message extends Component {
               className="form-border"
             />
             <Button type="submit" className="comment-button">Post</Button>
-          </form> : ''}
+          </form> : <div className="box"><p className="new-chat-message">start a new chat!</p></div>}
       </div>
     )
     return (
@@ -187,7 +197,7 @@ class Message extends Component {
           {userHtml}
         </div>
         <div>
-          {this.state.currentMessage ? currentMessage : ''}
+          {this.state.currentMessage ? currentMessage : 'yo'}
         </div>
       </div>
     )
