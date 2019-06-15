@@ -48,8 +48,9 @@ class SignUp extends Component {
           type="username"
           name="username"
           value={username}
-          placeholder="Username"
+          placeholder="Username(no spaces)"
           onChange={this.handleChange}
+          pattern="^\S+$"
         />
         <label htmlFor="email">Email</label>
         <input

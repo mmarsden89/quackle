@@ -6,6 +6,9 @@ $error: #f08181;
 $charcoal: #ccc;
 $body: #fafafa;
 $link: #3897f0;
+$border: rgba(0, 0, 0, .125);
+$white: #fff;
+$duckyellow: rgba(255, 239, 1, .8);
 
 html,
 #root {
@@ -39,9 +42,13 @@ html,
   background-color: $error;
 }
 
+.absolute {
+  position: absolute;
+}
+
 .avatar-profile {
-  width: 100px;
   border-radius: 50%;
+  width: 100px;
 }
 
 .auth-form {
@@ -78,6 +85,18 @@ img {
   z-index: 10;
 }
 
+.box {
+  background-color: $white;
+  border: 1px solid $border;
+  border-top: 0;
+  height: 37px;
+  padding-left: 10px;
+  position: absolute;
+  right: 300px;
+  top: 500px;
+  width: 600px;
+}
+
 .card {
   margin-bottom: 7px;
   margin-left: 0;
@@ -87,7 +106,7 @@ img {
 
 .card-header {
   align-items: center;
-  background-color: white;
+  background-color: $white;
   display: flex;
   flex-direction: row;
   justify-content: left;
@@ -96,7 +115,7 @@ img {
 }
 
 .card-footer {
-  background-color: white;
+  background-color: $white;
   padding-bottom: 0;
 }
 
@@ -113,6 +132,29 @@ img {
   margin-left: 10px;
   margin-top: 15px;
   width: 200px;
+}
+
+.chat-window {
+  background-color: $white;
+  border: 1px solid $border;
+  height: 400px;
+  overflow: hidden;
+  overflow-y: scroll;
+  position: absolute;
+  right: 300px;
+  top: 100px;
+  width: 600px;
+}
+
+.chat-input {
+  background-color: $white;
+  border: 1px solid $border;
+  border-top: 0;
+  padding-left: 10px;
+  position: absolute;
+  right: 300px;
+  top: 500px;
+  width: 100%;
 }
 
 .right {
@@ -148,14 +190,19 @@ img {
   margin-bottom: 5px;
 }
 
+.chat-mobile-container {
+  display: flex;
+}
+
 .comment-button {
-  background-color: white;
+  background-color: $white;
   border: 0;
   color: $link;
+  right: 0;
 }
 
 .comment-button:hover {
-  background-color: white;
+  background-color: $white;
   color: $link;
 }
 
@@ -205,13 +252,19 @@ img {
   font-size: 35px;
 }
 
+.icon-sm {
+  color: $link;
+  font-size: 15px;
+  margin-left: 5px;
+}
+
 .image-background {
-  background-color: white;
-  border: 1px solid rgba(0, 0 , 0 , .125);
+  background-color: $white;
+  border: 1px solid $border;
   border-right: 0;
+  display: flex;
   height: 600px;
   margin-top: 100px;
-  display: flex;
 }
 
 .individual-picture {
@@ -231,8 +284,32 @@ img {
   margin: 10px 0 10px 20px;
 }
 
-.margin-top {
+.margin-left-5 {
+  margin-left: 5px;
+}
+
+.margin-top, .margin-top-msg {
   margin-top: 100px;
+}
+
+.margin-top-5 {
+  margin-top: 5px;
+}
+
+.message-left {
+  align-items: flex-start;
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+.message-right {
+  align-items: flex-start;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px;
+  margin-top: 5px;
 }
 
 .modal-container {
@@ -250,6 +327,32 @@ img {
 
 .modal-title {
   margin: 0 auto;
+}
+
+.new-chat-message {
+  border-radius: 5px;
+  margin: auto;
+  padding: 5px;
+  position: absolute;
+}
+
+.no-display {
+  display: none;
+}
+
+.not-added-list {
+  background-color: $white;
+  border: 1px solid $border;
+  border-right: 0;
+  border-top: 0;
+  display: flex;
+  flex-direction: column;
+  height: 137px;
+  justify-content: center;
+  overflow-y: scroll;
+  position: absolute;
+  top: 300px;
+  width: 340px;
 }
 
 .picture-description {
@@ -282,6 +385,12 @@ img {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.red-ring {
+  border: 3px solid rgba(196, 53, 22, .7);
+  cursor: pointer;
+  z-index: 8;
 }
 
 
@@ -326,13 +435,24 @@ img {
 
 .sidebar-small {
   font-weight: 700;
-  margin: 0 0 0 15px;
+  margin: 0 0 0 35px;
+}
+
+.chat-super-small {
+  color: rgb(133, 133, 133);
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+.chat-sidebar {
+  font-weight: 700;
+  margin-left: 10px;
 }
 
 .sidebar-super-small {
   color: rgb(133, 133, 133);
   font-size: 12px;
-  margin: 0 0 0 15px;
+  margin: 0 0 0 35px;
 }
 
 
@@ -357,10 +477,38 @@ img {
 }
 
 .upload-input {
-  margin: 10px 0;
-  border-radius: 3px;
-  outline: 0;
   border: solid 1px #dbdbdb;
+  border-radius: 3px;
+  margin: 10px 0;
+  outline: 0;
+}
+
+.user-list {
+  background-color: $white;
+  border: 1px solid $border;
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  overflow-y: scroll;
+  width: 340px;
+}
+
+// messaging colors
+
+.grey {
+  background-color: rgb(230, 225, 225);
+  border-radius: 15px;
+  margin-right: 10px;
+  padding: 5px 20px;
+  margin-right: 10px;
+}
+
+.yellow {
+  background-color: $duckyellow;
+  border-radius: 15px;
+  margin-right: 10px;
+  padding: 5px 10px;
+  margin-left: 10px;
 }
 
 span > * {
@@ -375,6 +523,49 @@ span > * {
   .form-border-s {
     width: 225px;
   }
+
+  .chat-window {
+    border-top: 0;
+    height: 300px;
+    margin-top: 50px;
+    position: relative;
+    right: initial;
+    top: initial;
+  }
+
+  .chat-input, .box {
+    margin-left: initial;
+    position: relative;
+    right: initial;
+    top: initial;
+  }
+
+  .user-list {
+    flex-direction: row;
+    height: 50px;
+    position: relative;
+    top: 100px;
+    width: 600px;
+  }
+
+  .not-added-list {
+    display: none;
+  }
+
+  .margin-top-msg {
+    margin: 50px;
+  }
+
+  .mob {
+    display: none;
+  }
+
+  .chat-mobile-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 991px) {
@@ -384,6 +575,7 @@ span > * {
   .single-post {
     margin-top: 10px;
   }
+
 }
 
 @media (max-width: 950px) {
@@ -421,6 +613,30 @@ span > * {
 @media (max-width: 500px) {
   .form-border, .form-border-s {
     width: 325px;
+  }
+
+  .icon {
+    font-size: 20px;
+  }
+
+  .box {
+    width: 100%;
+  }
+
+  .chat-mobile-container {
+    width: 90vw;
+  }
+
+  .chat-window {
+    width: 90vw;
+  }
+
+  .chat-input {
+    width: 100%;
+  }
+
+  .user-list {
+    width: 100%;
   }
 }
 

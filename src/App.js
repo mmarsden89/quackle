@@ -14,8 +14,10 @@ import Picture from './Picture'
 import Profile from './Profile'
 import Settings from './Settings'
 import AutoDismissAlert from './AutoDismissAlert'
+import VideoUpload from './VideoUpload'
+import Message from './Message'
 
-class App extends Component {
+export class App extends Component {
   constructor () {
     super()
 
@@ -53,7 +55,7 @@ class App extends Component {
             <Pictures alert={this.alert} match={this.match} user={this.state.user} />
           )} />
           <Route exact path='/profile/:id' render={() => (
-            <Profile alert={this.alert} match={this.match} user={this.state.user} />
+            <Profile alert={this.alert} match={this.match} user={this.state.user} callComponent={this.callComponent} />
           )} />
           <Route path='/uploads/:id' render={() => (
             <Picture alert={this.alert} match={this.match} user={this.state.user} />
@@ -62,13 +64,19 @@ class App extends Component {
             <SignUp alert={this.alert} setUser={this.setUser} />
           )} />
           <Route path='/sign-in' render={() => (
-            <SignIn alert={this.alert} setUser={this.setUser} />
+            <SignIn alert={this.alert} setUser={this.setUser} updatePhoto={this.updatePhoto} />
           )} />
           <AuthenticatedRoute user={user} path='/sign-out' render={() => (
             <SignOut alert={this.alert} clearUser={this.clearUser} user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/upload' render={() => (
             <Upload alert={this.alert} match={this.match} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/message' render={() => (
+            <Message alert={this.alert} match={this.match} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/video-upload' render={() => (
+            <VideoUpload alert={this.alert} match={this.match} user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword alert={this.alert} user={user} />

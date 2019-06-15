@@ -135,6 +135,10 @@ input {
   .searchbar-div {
     display: none;
   }
+
+  .header-left {
+    margin-left: 0;
+  }
 }
 
 @media (max-width: 600px) {
@@ -148,9 +152,15 @@ input {
       font-size: 2.5em;
     }
   }
+  .duck-header {
+    display: none;
+  }
 }
 
 @media (max-width: 450px) {
+  .header-left {
+    margin-left: 125px;
+  }
   .main-header > nav {
     align-items: center;
     width: 100%;
@@ -162,8 +172,5 @@ input {
       text-align: center;
       width: 80%;
     }
-  }
-  .duck-header {
-    display: none;
   }
 }

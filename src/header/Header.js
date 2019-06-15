@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../apiConfig'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog, faCameraRetro, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faCog, faCameraRetro, faSearch, faUser, faVideo, faCommentDots } from '@fortawesome/free-solid-svg-icons'
 
 import './Header.scss'
 
@@ -18,6 +18,11 @@ class Header extends Component {
       profile: ''
     }
   }
+  async getUserProfile () {
+    const userProfile = await axios(`${apiUrl}/users/${this.props.user._id}`)
+    return userProfile.data.user.profile
+  }
+
   async componentDidMount () {
     const response = await axios(`${apiUrl}/uploads`)
     this.setState({ pictures: response.data.uploads })
@@ -59,9 +64,11 @@ class Header extends Component {
         <div className="header-right">
           { this.props.user
             ? <nav className="nav-right">
+              <Link to="/message"><FontAwesomeIcon className="icon" icon={faCommentDots}/></Link>
+              <Link to="/video-upload"><FontAwesomeIcon className="icon" icon={faVideo}/></Link>
               <Link to="/upload"><FontAwesomeIcon className="icon" icon={faCameraRetro}/></Link>
               <Link to="/settings"><FontAwesomeIcon className="icon" icon={faCog}/></Link>
-              <Link to={'/profile/' + this.props.user._id}><img className="avatar" src={this.props.user.profile}/></Link>
+              <Link to={'/profile/' + this.props.user._id}><FontAwesomeIcon className="icon" icon={faUser}/></Link>
             </nav> : <nav className="nav-right">
               <Link to="/sign-up">Sign Up</Link>
               <Link to="/sign-in">Sign In</Link>
@@ -72,4 +79,4 @@ class Header extends Component {
   }
 }
 
-export default Header
+export default withRouter(Header)
