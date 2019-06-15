@@ -142,11 +142,11 @@ class Message extends Component {
     const userHtml = this.state.users.filter(user => {
       return user._id !== this.props.user._id && !userMessages.includes(user.username)
     }).map(user => (
-      <div key={user._id}>
+      <div key={user._id} className="margin-top-5 margin-left-5">
         <span>
           <img src={user.profile} id={user._id} onClick={this.createChat} className="avatar-pictures hand-hover"/>
-          <p onClick={this.createChat} className="hand-hover">{user.username}</p>
-          <FontAwesomeIcon className="icon-sm hand-hover" icon={faPlusCircle} onClick={this.createChat}/>
+          <p id={user._id} onClick={this.createChat} className="hand-hover chat-sidebar">{user.username}</p>
+          <FontAwesomeIcon id={user._id} className="icon-sm hand-hover" icon={faPlusCircle} onClick={this.createChat}/>
         </span>
       </div>
     ))

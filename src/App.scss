@@ -6,6 +6,9 @@ $error: #f08181;
 $charcoal: #ccc;
 $body: #fafafa;
 $link: #3897f0;
+$border: rgba(0, 0, 0, .125);
+$white: #fff;
+$duckyellow: rgba(255, 239, 1, .8);
 
 html,
 #root {
@@ -91,7 +94,7 @@ img {
 
 .card-header {
   align-items: center;
-  background-color: white;
+  background-color: $white;
   display: flex;
   flex-direction: row;
   justify-content: left;
@@ -100,7 +103,7 @@ img {
 }
 
 .card-footer {
-  background-color: white;
+  background-color: $white;
   padding-bottom: 0;
 }
 
@@ -120,8 +123,8 @@ img {
 }
 
 .chat-window {
-  background-color: rgb(231, 231, 231);
-  border: 1px solid rgba(0, 0 , 0, .125);
+  background-color: $white;
+  border: 1px solid $border;
   height: 400px;
   overflow: hidden;
   overflow-y: scroll;
@@ -132,7 +135,8 @@ img {
 }
 
 .chat-input {
-  border: 1px solid rgba(0, 0 , 0, .125);
+  background-color: $white;
+  border: 1px solid $border;
   border-top: 0;
   padding-left: 10px;
   position: absolute;
@@ -175,13 +179,14 @@ img {
 }
 
 .comment-button {
-  background-color: white;
+  background-color: $white;
   border: 0;
   color: $link;
+  right: 0;
 }
 
 .comment-button:hover {
-  background-color: white;
+  background-color: $white;
   color: $link;
 }
 
@@ -232,17 +237,18 @@ img {
 }
 
 .icon-sm {
-  font-size: 20px;
-  color: blue;
+  color: $link;
+  font-size: 15px;
+  margin-left: 5px;
 }
 
 .image-background {
-  background-color: white;
-  border: 1px solid rgba(0, 0 , 0 , .125);
+  background-color: $white;
+  border: 1px solid $border;
   border-right: 0;
+  display: flex;
   height: 600px;
   margin-top: 100px;
-  display: flex;
 }
 
 .individual-picture {
@@ -312,10 +318,14 @@ img {
 }
 
 .not-added-list {
-  border: 1px solid rgba(0,0,0,.125);
+  background-color: $white;
+  border: 1px solid $border;
   border-right: 0;
   border-top: 0;
+  display: flex;
+  flex-direction: column;
   height: 137px;
+  justify-content: center;
   overflow-y: scroll;
   position: absolute;
   top: 300px;
@@ -451,7 +461,8 @@ img {
 }
 
 .user-list {
-  border: 1px solid rgba(0, 0, 0, .125);
+  background-color: $white;
+  border: 1px solid $border;
   height: 300px;
   overflow-y: scroll;
   width: 340px;
@@ -468,7 +479,7 @@ img {
 }
 
 .yellow {
-  background-color: yellow;
+  background-color: $duckyellow;
   border-radius: 15px;
   margin-right: 10px;
   padding: 5px 10px;
