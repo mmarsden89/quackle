@@ -150,11 +150,11 @@ img {
   background-color: $white;
   border: 1px solid $border;
   border-top: 0;
+  margin-left: -2px;
   padding-left: 10px;
-  position: absolute;
-  right: 300px;
+  position: relative;
   top: 500px;
-  width: 100%;
+  width: 106%;
 }
 
 .right {
@@ -538,6 +538,7 @@ span > * {
     position: relative;
     right: initial;
     top: initial;
+    width: 100%;
   }
 
   .user-list {
