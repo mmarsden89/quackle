@@ -90,7 +90,8 @@ class Profile extends Component {
     const user = this.state.user
     const picture = this.state.pictures.filter(function (pic) {
       return pic.owner._id === user._id
-    }).filter(picture => picture.description !== 'Profile').map(picture => (
+    }).filter(picture => picture.description !== 'Profile' && picture.description !==
+  'Video').map(picture => (
       <Link key={picture._id} to={'/uploads/' + picture._id}><Image key={picture._id} className="profile-images" src={picture.url}/></Link>
     ))
 
