@@ -84,7 +84,6 @@ class Message extends Component {
   }
 
   handleClick = async event => {
-    console.log(event.target.id)
     this.messageToggle()
     const chatResponse = await axios({
       url: apiUrl + '/chats/' + event.target.id,
