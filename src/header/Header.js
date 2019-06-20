@@ -54,7 +54,7 @@ class Header extends Component {
       <header className="main-header">
         <div className="header-left">
           <img className='duck-header' src="https://i.imgur.com/8xwTCdE.png"/>
-          <Link to="/" className="header-h1"><h1>duckPics</h1></Link>
+          <Link to="/" className="header-h1"><h1>quackle</h1></Link>
         </div>
         <div className="searchbar-div">
           <FontAwesomeIcon className="search-icon" icon={faSearch}/>
