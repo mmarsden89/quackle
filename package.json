@@ -1,6 +1,6 @@
 {
-  "name": "duckPics-client",
-  "homepage": "https://mmarsden89.github.io/duckPics-client",
+  "name": "quackle",
+  "homepage": "https://mmarsden89.github.io/quackle",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
