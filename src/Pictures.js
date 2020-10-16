@@ -106,7 +106,7 @@ class Pictures extends Component {
   handleFollow = async event => {
     const id = event.target.id
     await axios({
-      url: apiUrl + `/follow/${id}`,
+      url: apiUrl + `/visited/${id}`,
       method: 'PATCH',
       headers: { Authorization: 'Token token=' + this.props.user.token },
       data: {
